@@ -1,16 +1,16 @@
-[logo-compass]: img/compass.svg 
-[logo-speed]: img/speed.svg 
+[logo-compass]: img/compass.preview.png
+[logo-speed]: img/speed.preview.png
+[logo-altitude]: img/altitude.preview.png
+
+[logo-horizon]: img/horizon.preview.png
+[logo-vertical-speed]: img/vertical-speed.preview.png 
 [logo-altitude]: img/altitude.svg 
 
-[logo-horizon]: img/horizon.svg 
-[logo-vertical-speed]: img/vertical-speed.svg 
-[logo-altitude]: img/altitude.svg 
+[logo-stick]: img/stick.preview.png
+[logo-pedal]: img/pedal.preview.png
+[logo-collective]: img/collective.preview.png
 
-[logo-stick]: img/stick.svg 
-[logo-pedal]: img/pedal.svg 
-[logo-collective]: img/collective.svg
-
-[logo-coming-soon]: img/coming_soon.svg
+[logo-coming-soon]: img/coming_soon.preview.png
 
 ## Description
 
@@ -27,7 +27,7 @@ Standard
 
 |     Compass     |    Speed      |      Altitude    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator](img/compass.preview.png)     |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
+|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
 |     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude    |
 
 ---
