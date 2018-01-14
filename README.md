@@ -41,6 +41,55 @@ Helicopter specific
 |     ![Stick indicator][logo-stick]     |     ![Pedal indicator][logo-pedal]      |   ![Collective indicator][logo-collective]       |
 |     Displays helicopter stick position     |     Displays helicopter pedal position    |  Displays helicopter collective hand gear position       |
 
+## Code Example
+- Use it as browser variable
+```js
+
+// Set basic options for all flight indicators
+FlightIndicator.setOptions({
+        assets: "../img/" // path where the svgs are located
+});
+
+// Create all indicator and pass the id of the html element 
+// which shall be used as
+var compass = new FlightIndicator.Compass({
+    containerId: "compass-container"
+});
+var stick = new FlightIndicator.Stick({
+    containerId: "stick-container"
+});
+var pedal = new FlightIndicator.Pedal({
+    containerId: "pedal-container"
+});
+var collective = new FlightIndicator.Collective({
+    containerId: "collective-container"
+});
+
+// Update methods. 
+compass.update(/* number within range from 360 to -360 */);
+stick.update(
+    /* number within range from 1 to -1 */, 
+    /* number within range from 1 to -1 */
+);
+pedal.update(
+    /* number within range from 1 to 0 */, 
+    /* number within range from 1 to 0 */
+);
+collective.update(/* number within range from 60 to 0 */);
+```
+- Use it with require.js
+```js
+require(["path/to/FlightIndicator"], function(FlightIndicator){
+    // Work with FlightIndicator
+});
+```
+
+- For an implemented example visit `example/index.html` and `example/index.js`
+
 ## Support
 Supports AMD eco system. If there is no loader, FlightIndicator is registered as a browser variable.
+
+## License
+
+MIT
 
