@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>JeanFlightIndicators</title>
+    <title>Flight Indicators</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <style>
@@ -27,8 +27,12 @@
             width: 100%;
         }
 
-        .row {
+        .row-top {
             margin-top: 150px;
+        }
+
+        .row-standard {
+            margin-top: 15px;
         }
 
         .jean-navbar {
@@ -40,8 +44,8 @@
 <body>
     <section id="jean-navbar-container"></section>
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container">
+        <div class="row row-top">
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div id="compass-container"></div>
             </div>
@@ -56,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-standard">
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div id="stick-container">
                     <object id="stick-svg" data="../img/stick.svg" type="image/svg+xml"></object>
@@ -77,6 +81,7 @@
 
     <script src="../dist/jean-flight-indicator.js"></script>
     <script src="../node_modules/jean-navbar/dist/jean-navbar.js"></script>
+    <script src="ValueGenerator.js"></script>
     <script src="index.js"></script>
 </body>
 

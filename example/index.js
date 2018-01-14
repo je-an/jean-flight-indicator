@@ -18,28 +18,70 @@ $(document).ready(function () {
         containerId: "collective-container"
     });
 
+
+
     var isStarted = false, interval;
+    /* 
+        var g = new ValueGenerator(100); */
+
+    /* console.log(Math.sin(0));
+    console.log(Math.sin(0.25));
+    console.log(Math.sin(0.5));
+    console.log(Math.sin(0.75));
+    console.log(Math.sin(1)); */
+
     var n = new Navbar({
         containerId: "jean-navbar-container",
         title: "Flight Indicators",
         icon: "favicon.ico",
         sections: ["Start"],
         onSectionClick: function (id) {
-            var increment = 0;
             if (isStarted) {
                 clearInterval(interval);
                 isStarted = false;
                 $("#id-Start").find(".text").html("Start");
             } else {
+                var compassI = 0, stickI = 0, collectiveI = 0, countDownStick = false, countUpStick = true,
+                    countDownCollective = false, countUpCollective = true;
+                function generateStickIncrement() {
+                    if (countDownStick) {
+                        stickI = stickI - 0.01;
+                        if (stickI <= -1) {
+                            countDownStick = false;
+                            countUpStick = true;
+                        }
+                    } else if (countUpStick) {
+                        stickI = stickI + 0.01;
+                        if (stickI >= 1) {
+                            countUpStick = false;
+                            countDownStick = true;
+                        }
+                    }
+                }
+                function generateCollectiveIncrement() {
+                    if (countDownCollective) {
+                        collectiveI = collectiveI - 0.01;
+                        if (collectiveI <= 0) {
+                            countUpCollective = true;
+                            countDownCollective = false;
+                        }
+                    } else if (countUpCollective) {
+                        collectiveI = collectiveI + 0.01;
+                        if (collectiveI >= 1) {
+                            countUpCollective = false;
+                            countDownCollective = true;
+                        }
+                    }
+                }
                 interval = setInterval(function () {
-                    var x = 0.75 * Math.sin(increment / 100),
-                        y = -0.75 * Math.sin(increment / 100);
+                    pedal.update(collectiveI, collectiveI);
+                    compass.update(Math.sin(compassI / 500) * 360);
+                    stick.update(stickI * 1, stickI * 1);
+                    collective.update(collectiveI * 60);
+                    compassI++;
+                    generateStickIncrement();
+                    generateCollectiveIncrement();
 
-                    compass.update((x / 4) * 360);
-                    stick.update(x, y);
-                    pedal.update(x, y);
-                    collective.update(x * 60);
-                    increment++;
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");
@@ -47,7 +89,7 @@ $(document).ready(function () {
         }
     });
     n.create();
-    function randomIntFromInterval(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    function updateCompass(i) {
+
     }
 });

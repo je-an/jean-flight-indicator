@@ -31,7 +31,6 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
     StickIndicator.prototype.update = function (x, y) {
         if (this.isReady) {
             var xValue, yValue;
-            // TODO: BoundCheck einbauen
             // Set proper x value
             if (this.isPositiveNumber(x)) {
                 xValue = this.calculatePercentage(x, this.bounds.high);
@@ -48,7 +47,7 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
             } else {
                 yValue = 0;
             }
-            this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
+            this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + -yValue + ")";
         }
     };
     return StickIndicator;

@@ -380,16 +380,15 @@ define('IndicatorBase',[ // jscs:ignore
 
         var svg = document.getElementById(options.svgId), instance = this;
         svg.data = BaseOptions.assets + options.svgDataName;
-            // add data urlto svg
-            svg.addEventListener('load', function () {
-                instance.svgElement = svg.contentDocument;
-                instance.isReady = true;
-                options.onSvgReady();
-            }, true);
+        svg.addEventListener('load', function () {
+            instance.svgElement = svg.contentDocument;
+            instance.isReady = true;
+            options.onSvgReady();
+        }, true);
     };
     /** */
     IndicatorBase.prototype.calculatePercentage = function (value, bound) {
-        return value * bound;
+        return Math.abs(value) * bound;
     };
     /** */
     IndicatorBase.prototype.isPositiveNumber = function (number) {
@@ -412,6 +411,10 @@ define('IndicatorBase',[ // jscs:ignore
                 s = "0" + degree;
                 break;
             case 3:
+                s = degree;
+                break;
+            case 4:
+                s = degree;
                 break;
         }
         return s;
@@ -463,7 +466,6 @@ define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], fun
     StickIndicator.prototype.update = function (x, y) {
         if (this.isReady) {
             var xValue, yValue;
-            // TODO: BoundCheck einbauen
             // Set proper x value
             if (this.isPositiveNumber(x)) {
                 xValue = this.calculatePercentage(x, this.bounds.high);
@@ -480,7 +482,7 @@ define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], fun
             } else {
                 yValue = 0;
             }
-            this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
+            this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + -yValue + ")";
         }
     };
     return StickIndicator;
@@ -522,9 +524,9 @@ define('PedalIndicator',["Inheritance", "IndicatorBase", "text!pedal-html"], fun
     PedalIndicator.prototype.update = function (leftY, rightY) {
         if (this.isReady) {
             leftY = leftY > 1 ? 1 : leftY;
-            leftY = leftY < 1 ? 0 : leftY;
+            leftY = leftY < 0 ? 0 : leftY;
             rightY = rightY > 1 ? 1 : rightY;
-            rightY = rightY < 1 ? 0 : rightY;
+            rightY = rightY < 0 ? 0 : rightY;
 
             var yleftValue, yRightValue;
             yleftValue = this.calculatePercentage(leftY, this.bounds.high);

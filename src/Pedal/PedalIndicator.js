@@ -32,9 +32,9 @@ define(["Inheritance", "IndicatorBase", "text!pedal-html"], function (Inheritanc
     PedalIndicator.prototype.update = function (leftY, rightY) {
         if (this.isReady) {
             leftY = leftY > 1 ? 1 : leftY;
-            leftY = leftY < 1 ? 0 : leftY;
+            leftY = leftY < 0 ? 0 : leftY;
             rightY = rightY > 1 ? 1 : rightY;
-            rightY = rightY < 1 ? 0 : rightY;
+            rightY = rightY < 0 ? 0 : rightY;
 
             var yleftValue, yRightValue;
             yleftValue = this.calculatePercentage(leftY, this.bounds.high);

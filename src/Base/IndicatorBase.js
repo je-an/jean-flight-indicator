@@ -39,16 +39,15 @@ define([ // jscs:ignore
 
         var svg = document.getElementById(options.svgId), instance = this;
         svg.data = BaseOptions.assets + options.svgDataName;
-            // add data urlto svg
-            svg.addEventListener('load', function () {
-                instance.svgElement = svg.contentDocument;
-                instance.isReady = true;
-                options.onSvgReady();
-            }, true);
+        svg.addEventListener('load', function () {
+            instance.svgElement = svg.contentDocument;
+            instance.isReady = true;
+            options.onSvgReady();
+        }, true);
     };
     /** */
     IndicatorBase.prototype.calculatePercentage = function (value, bound) {
-        return value * bound;
+        return Math.abs(value) * bound;
     };
     /** */
     IndicatorBase.prototype.isPositiveNumber = function (number) {
@@ -71,6 +70,10 @@ define([ // jscs:ignore
                 s = "0" + degree;
                 break;
             case 3:
+                s = degree;
+                break;
+            case 4:
+                s = degree;
                 break;
         }
         return s;
