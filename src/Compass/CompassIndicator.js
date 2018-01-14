@@ -14,13 +14,15 @@ define([ // jscs:ignore
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-
-        this.init("compass-svg", function () {
-            instance.compassRose = instance.svgElement.getElementById("compass-rose");
-            instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
-            instance.compassRose.setAttribute("transform", "");
+        this.init({
+            svgId: "compass-svg",
+            svgDataName: "compass.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.compassRose = instance.svgElement.getElementById("compass-rose");
+                instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
+                instance.compassRose.setAttribute("transform", "");
+            }
         });
-
     };
     Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
     /** @param {Number} degree - range from -360 to 360 */

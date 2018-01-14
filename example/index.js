@@ -3,7 +3,7 @@
 $(document).ready(function () {
     var stick, pedal, collective;
     FlightIndicator.setOptions({
-        assets: "../img"
+        assets: "../img/"
     });
     var compass = new FlightIndicator.Compass({
         containerId: "compass-container"

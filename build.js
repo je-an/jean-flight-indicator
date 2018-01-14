@@ -26,7 +26,9 @@
         "Interface": "node_modules/jean-interface/src/Interface",
         "NotImplementedError": "node_modules/jean-interface/src/NotImplementedError",
         
+        "BaseOptions": "src/Base/BaseOptions",
         "IndicatorBase": "src/Base/IndicatorBase",
+
         "CompassIndicator": "src/Compass/CompassIndicator",
         "compass-html": "src/Compass/html/compass.html",
 

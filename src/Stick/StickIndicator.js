@@ -10,10 +10,18 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("stick-svg", function () {
-            instance.stickElement = instance.svgElement.getElementById("stick-element");
-            instance.stickElement.setAttribute("transform", "");
+        this.init({
+            svgId: "stick-svg",
+            svgDataName: "stick.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.stickElement = instance.svgElement.getElementById("stick-element");
+                instance.stickElement.setAttribute("transform", "");
+            }
         });
+        this.bounds = {
+            high: 175,
+            low: -175
+        };
     };
     Inheritance.inheritPrototype(StickIndicator, IndicatorBase);
     /** 
@@ -26,21 +34,20 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
             // TODO: BoundCheck einbauen
             // Set proper x value
             if (this.isPositiveNumber(x)) {
-                xValue = this.calculatePercentage(x, this.svgBounds.high);
+                xValue = this.calculatePercentage(x, this.bounds.high);
             } else if (this.isNegativeNumber(x)) {
-                xValue = this.calculatePercentage(x, this.svgBounds.low);
+                xValue = this.calculatePercentage(x, this.bounds.low);
             } else {
                 xValue = 0;
             }
             // Set proper y value
             if (this.isPositiveNumber(y)) {
-                yValue = this.calculatePercentage(y, this.svgBounds.high);
+                yValue = this.calculatePercentage(y, this.bounds.high);
             } else if (this.isNegativeNumber(y)) {
-                yValue = this.calculatePercentage(y, this.svgBounds.low);
+                yValue = this.calculatePercentage(y, this.bounds.low);
             } else {
                 yValue = 0;
             }
-
             this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
         }
     };

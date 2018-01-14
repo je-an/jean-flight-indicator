@@ -333,7 +333,18 @@ define('Interface',["NotImplementedError", "TypeCheck", "Failure"], function (No
         }
     };
 }); 
-define('IndicatorBase',["TypeCheck", "Interface", "Failure"], function (TypeCheck, Interface, Failure) { // jscs:ignore
+define('BaseOptions',[
+], function () {
+    return {
+        assets: "img/"
+    };
+});
+define('IndicatorBase',[ // jscs:ignore
+    "TypeCheck",
+    "Interface",
+    "Failure",
+    "BaseOptions"
+], function (TypeCheck, Interface, Failure, BaseOptions) { // jscs:ignore
     /**
      * Provides functionalty for displaying flight parameters 
      * @alias IndicatorBase 
@@ -348,17 +359,18 @@ define('IndicatorBase',["TypeCheck", "Interface", "Failure"], function (TypeChec
         }
         /* Interface.areMembersImplemented(["svgElement"], this); */
         Interface.areMethodsImplemented(["update"], this);
-        this.svgBounds = {
-            high: 175,
-            low: -175
-        };
         this.svgElement = null;
         this.options = options;
         this.container = null;
         this.isReady = false;
     };
-    /** @param {String} svgId - id of the svg object element */
-    IndicatorBase.prototype.init = function (svgId, fn) {
+    /** 
+     * @param {Object} options - options object
+     * @param {String} options.svgId - id of the svg object element 
+     * @param {String} options.svgDataName - data name of the svg
+     * @param {Function} options.onSvgReady - Gets called, if the svg is loaded into DOM
+     */
+    IndicatorBase.prototype.init = function (options) {
         var id = this.options.containerId;
         this.container = document.getElementById(id);
         if (!this.container) {
@@ -366,12 +378,14 @@ define('IndicatorBase',["TypeCheck", "Interface", "Failure"], function (TypeChec
         }
         this.container.innerHTML = this.options.template;
 
-        var svg = document.getElementById(svgId), instance = this;
-        svg.addEventListener('load', function () {
-            instance.svgElement = svg.contentDocument;
-            instance.isReady = true;
-            fn();
-        }, true);
+        var svg = document.getElementById(options.svgId), instance = this;
+        svg.data = BaseOptions.assets + options.svgDataName;
+            // add data urlto svg
+            svg.addEventListener('load', function () {
+                instance.svgElement = svg.contentDocument;
+                instance.isReady = true;
+                options.onSvgReady();
+            }, true);
     };
     /** */
     IndicatorBase.prototype.calculatePercentage = function (value, bound) {
@@ -414,7 +428,7 @@ define('IndicatorBase',["TypeCheck", "Interface", "Failure"], function (TypeChec
 });
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="../img/stick.svg" type="image/svg+xml"></object>\r\n</div>';});
+define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
 define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
@@ -428,10 +442,18 @@ define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], fun
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("stick-svg", function () {
-            instance.stickElement = instance.svgElement.getElementById("stick-element");
-            instance.stickElement.setAttribute("transform", "");
+        this.init({
+            svgId: "stick-svg",
+            svgDataName: "stick.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.stickElement = instance.svgElement.getElementById("stick-element");
+                instance.stickElement.setAttribute("transform", "");
+            }
         });
+        this.bounds = {
+            high: 175,
+            low: -175
+        };
     };
     Inheritance.inheritPrototype(StickIndicator, IndicatorBase);
     /** 
@@ -444,28 +466,27 @@ define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], fun
             // TODO: BoundCheck einbauen
             // Set proper x value
             if (this.isPositiveNumber(x)) {
-                xValue = this.calculatePercentage(x, this.svgBounds.high);
+                xValue = this.calculatePercentage(x, this.bounds.high);
             } else if (this.isNegativeNumber(x)) {
-                xValue = this.calculatePercentage(x, this.svgBounds.low);
+                xValue = this.calculatePercentage(x, this.bounds.low);
             } else {
                 xValue = 0;
             }
             // Set proper y value
             if (this.isPositiveNumber(y)) {
-                yValue = this.calculatePercentage(y, this.svgBounds.high);
+                yValue = this.calculatePercentage(y, this.bounds.high);
             } else if (this.isNegativeNumber(y)) {
-                yValue = this.calculatePercentage(y, this.svgBounds.low);
+                yValue = this.calculatePercentage(y, this.bounds.low);
             } else {
                 yValue = 0;
             }
-
             this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
         }
     };
     return StickIndicator;
 });
 
-define('text!pedal-html',[],function () { return '<div id="pedal-module" style="width: 100%">\r\n        <object id="pedal-svg" style="width: 100%" data="../img/pedal.svg" type="image/svg+xml"></object>\r\n    </div>';});
+define('text!pedal-html',[],function () { return '<div id="pedal-module" style="width: 100%">\r\n        <object id="pedal-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n    </div>';});
 
 define('PedalIndicator',["Inheritance", "IndicatorBase", "text!pedal-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
@@ -479,35 +500,36 @@ define('PedalIndicator',["Inheritance", "IndicatorBase", "text!pedal-html"], fun
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("pedal-svg", function () {
-            instance.pedalLeftElement = instance.svgElement.getElementById("pedal-left-element");
-            instance.pedalRightElement = instance.svgElement.getElementById("pedal-right-element");
-            instance.pedalLeftElement.setAttribute("transform", "");
-            instance.pedalRightElement.setAttribute("transform", "");
+        this.init({
+            svgId: "pedal-svg",
+            svgDataName: "pedal.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.pedalLeftElement = instance.svgElement.getElementById("pedal-left-element");
+                instance.pedalRightElement = instance.svgElement.getElementById("pedal-right-element");
+                instance.pedalLeftElement.setAttribute("transform", "");
+                instance.pedalRightElement.setAttribute("transform", "");
+            }
         });
+        this.bounds = {
+            high: 373
+        };
     };
     Inheritance.inheritPrototype(PedalIndicator, IndicatorBase);
-    /** */
+    /** 
+     * @param {Number} leftY - y value for movement of left pedal -> range from 1 to 0
+     * @param {Number} rightY - y value for movement of right pedal -> range from 1 to 0
+     */
     PedalIndicator.prototype.update = function (leftY, rightY) {
         if (this.isReady) {
+            leftY = leftY > 1 ? 1 : leftY;
+            leftY = leftY < 1 ? 0 : leftY;
+            rightY = rightY > 1 ? 1 : rightY;
+            rightY = rightY < 1 ? 0 : rightY;
+
             var yleftValue, yRightValue;
-            // TODO: BoundCheck einbauen
-            // Set proper x value
-            if (this.isPositiveNumber(leftY)) {
-                yleftValue = this.calculatePercentage(leftY, this.svgBounds.high);
-            } else if (this.isNegativeNumber(leftY)) {
-                yleftValue = this.calculatePercentage(leftY, this.svgBounds.low);
-            } else {
-                yleftValue = 0;
-            }
-            // Set proper y value
-            if (this.isPositiveNumber(rightY)) {
-                yRightValue = this.calculatePercentage(rightY, this.svgBounds.high);
-            } else if (this.isNegativeNumber(rightY)) {
-                yRightValue = this.calculatePercentage(rightY, this.svgBounds.low);
-            } else {
-                yRightValue = 0;
-            }
+            yleftValue = this.calculatePercentage(leftY, this.bounds.high);
+            yRightValue = this.calculatePercentage(rightY, this.bounds.high);
+    
             this.pedalLeftElement.attributes.transform.nodeValue = "translate(0, " + (yleftValue) + ")";
             this.pedalRightElement.attributes.transform.nodeValue = "translate(0, " + (yRightValue) + ")";
         }
@@ -515,7 +537,7 @@ define('PedalIndicator',["Inheritance", "IndicatorBase", "text!pedal-html"], fun
     return PedalIndicator;
 });
 
-define('text!collective-html',[],function () { return '<div id="collective-module" style="width: 100%">\r\n    <object id="collective-svg" style="width: 100%" data="../img/collective.svg" type="image/svg+xml"></object>\r\n</div>';});
+define('text!collective-html',[],function () { return '<div id="collective-module" style="width: 100%">\r\n    <object id="collective-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
 define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
@@ -529,14 +551,18 @@ define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-h
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("collective-svg", function () {
-            instance.collectiveElement = instance.svgElement.getElementById("collective-element");
-            instance.collectiveValueText = instance.svgElement.getElementById("collective-value-text");
-            instance.collectiveElement.setAttribute("transform", "");
+        this.init({
+            svgId: "collective-svg",
+            svgDataName: "collective.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.collectiveElement = instance.svgElement.getElementById("collective-element");
+                instance.collectiveValueText = instance.svgElement.getElementById("collective-value-text");
+                instance.collectiveElement.setAttribute("transform", "");
+            }
         });
     };
     Inheritance.inheritPrototype(CollectiveIndicator, IndicatorBase);
-    /** */
+    /** @param {Number} degree - range from 0 to 60 */
     CollectiveIndicator.prototype.update = function (degree) {
         if (this.isReady) {
             degree = degree > 60 ? 60 : degree;
@@ -546,26 +572,13 @@ define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-h
             var centerX = coord.x;
             var centerY = coord.y + (coord.height / 2);
             this.collectiveElement.attributes.transform.nodeValue = "rotate(" + -degree + " " + centerX + " " + centerY + ")";
-
-            degree = degree.toFixed(0);
-            degree = degree.toString();
-            switch (degree.length) {
-                case 1:
-                    degree = "00" + degree;
-                    break;
-                case 2:
-                    degree = "0" + degree;
-                    break;
-                case 3:
-                    break;
-            }
-            this.collectiveValueText.childNodes[0].textContent = degree;
+            this.collectiveValueText.childNodes[0].textContent = this.formatDegreeString(degree);
         }
     };
     return CollectiveIndicator;
 });
 
-define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="../img/compass.svg" type="image/svg+xml"></object>\r\n</div>';});
+define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
 define('CompassIndicator',[ // jscs:ignore
     "Inheritance",
@@ -583,13 +596,15 @@ define('CompassIndicator',[ // jscs:ignore
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-
-        this.init("compass-svg", function () {
-            instance.compassRose = instance.svgElement.getElementById("compass-rose");
-            instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
-            instance.compassRose.setAttribute("transform", "");
+        this.init({
+            svgId: "compass-svg",
+            svgDataName: "compass.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.compassRose = instance.svgElement.getElementById("compass-rose");
+                instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
+                instance.compassRose.setAttribute("transform", "");
+            }
         });
-
     };
     Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
     /** @param {Number} degree - range from -360 to 360 */
@@ -607,15 +622,19 @@ define('CompassIndicator',[ // jscs:ignore
     return CompassIndicator;
 });
 define('src/base/FlightIndicator',[
+    "TypeCheck",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
-    "CompassIndicator"
+    "CompassIndicator",
+    "BaseOptions"
 ], function (
+    TypeCheck,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
-    CompassIndicator
+    CompassIndicator,
+    BaseOptions
 ) {
         /**
          * Provides functionalty for displaying flight parameters 
@@ -627,8 +646,16 @@ define('src/base/FlightIndicator',[
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,
             Compass: CompassIndicator,
+            /**
+             * @param {Object} options - options object
+             * @param {String} options.assets - path to svgs and other assets
+             */
             setOptions: function (options) {
-
+                function onStandardAssetPathUsed() { // jscs:ignore
+                    console.info("The standard asset path is used");
+                    return BaseOptions.assets;
+                }
+                BaseOptions.assets = TypeCheck.isString(options.assets) ? options.assets : onStandardAssetPathUsed()
             }
         };
     });
