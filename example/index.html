@@ -19,6 +19,8 @@
             text-align: center;
         }
 
+        #cm-svg,
+        #compass-svg,
         #stick-svg,
         #pedal-svg,
         #collective-svg {
@@ -27,6 +29,10 @@
 
         .row {
             margin-top: 150px;
+        }
+
+        .jean-navbar {
+            z-index: 100;
         }
     </style>
 </head>
@@ -37,17 +43,32 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="stick-module">
+                <div id="compass-container"></div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div id="cm-module">
+                    <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div id="cm-module">
+                    <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div id="stick-container">
                     <object id="stick-svg" data="../img/stick.svg" type="image/svg+xml"></object>
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="pedal-module">
+                <div id="pedal-container">
                     <object id="pedal-svg" data="../img/pedal.svg" type="image/svg+xml"></object>
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="collective-module">
+                <div id="collective-container">
                     <object id="collective-svg" data="../img/collective.svg" type="image/svg+xml"></object>
                 </div>
             </div>
@@ -56,38 +77,7 @@
 
     <script src="../dist/jean-flight-indicator.js"></script>
     <script src="../node_modules/jean-navbar/dist/jean-navbar.js"></script>
-    <script>
-        $(document).ready(function () {
-            var stick, pedal, collective;
-            var n = new Navbar({
-                containerId: "jean-navbar-container",
-                title: "Flight Indicators",
-                icon: "favicon.ico",
-                sections: ["Start Indicators"],
-                onSectionClick: function (id) {
-                    var stick = new FlightIndicator.Stick();
-                    var pedal = new FlightIndicator.Pedal();
-                    var collective = new FlightIndicator.Collective();
-
-                    var increment = 0;
-                    setInterval(function () {
-                        var x = 0.75*Math.sin(increment/100),
-                            y = -0.75*Math.sin(increment/100);
-                        console.log("X:" + x);
-                        console.log("Y:" + y);
-                        stick.update(x, y);
-                        pedal.update(x,y);
-                        collective.update(x * 60);
-                        increment++;
-                    }, 50);
-                }
-            });
-            n.create();
-            function randomIntFromInterval(min, max) {
-                return Math.floor(Math.random() * (max - min + 1) + min);
-            }
-        });
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>

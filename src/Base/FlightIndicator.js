@@ -1,11 +1,13 @@
 define([
     "StickIndicator",
     "PedalIndicator",
-    "CollectiveIndicator"
+    "CollectiveIndicator",
+    "CompassIndicator"
 ], function (
     StickIndicator,
     PedalIndicator,
-    CollectiveIndicator
+    CollectiveIndicator,
+    CompassIndicator
 ) {
         /**
          * Provides functionalty for displaying flight parameters 
@@ -15,6 +17,10 @@ define([
         return {
             Stick: StickIndicator,
             Pedal: PedalIndicator,
-            Collective: CollectiveIndicator
+            Collective: CollectiveIndicator,
+            Compass: CompassIndicator,
+            setOptions: function (options) {
+
+            }
         };
     });

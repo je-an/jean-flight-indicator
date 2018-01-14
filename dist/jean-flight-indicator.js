@@ -333,26 +333,45 @@ define('Interface',["NotImplementedError", "TypeCheck", "Failure"], function (No
         }
     };
 }); 
-define('IndicatorBase',["TypeCheck", "Interface"], function (TypeCheck, Interface) { // jscs:ignore
+define('IndicatorBase',["TypeCheck", "Interface", "Failure"], function (TypeCheck, Interface, Failure) { // jscs:ignore
     /**
      * Provides functionalty for displaying flight parameters 
      * @alias IndicatorBase 
      * @abstract
      * @constructor
      * @param {Object} options - options object
+     * @param {String} options.containerId - Id of the container, the indicator shall be placed in
      */
     var IndicatorBase = function (options) {
-        Interface.areMembersImplemented(["svgElement"], this);
+        if (!TypeCheck.isString(options.containerId)) {
+            Failure.throwTypeError("options.containerId is not a string");
+        }
+        /* Interface.areMembersImplemented(["svgElement"], this); */
         Interface.areMethodsImplemented(["update"], this);
-        this.bounds = {
+        this.svgBounds = {
             high: 175,
             low: -175
         };
+        this.svgElement = null;
+        this.options = options;
+        this.container = null;
+        this.isReady = false;
     };
-    /** @param {String} id - id of the svg object element */
-    IndicatorBase.prototype.init = function (id) {
-        var a = document.getElementById(id);
-        this.svgElement = a.contentDocument;
+    /** @param {String} svgId - id of the svg object element */
+    IndicatorBase.prototype.init = function (svgId, fn) {
+        var id = this.options.containerId;
+        this.container = document.getElementById(id);
+        if (!this.container) {
+            Failure.throwTypeError("There is no indicator container with id: " + id);
+        }
+        this.container.innerHTML = this.options.template;
+
+        var svg = document.getElementById(svgId), instance = this;
+        svg.addEventListener('load', function () {
+            instance.svgElement = svg.contentDocument;
+            instance.isReady = true;
+            fn();
+        }, true);
     };
     /** */
     IndicatorBase.prototype.calculatePercentage = function (value, bound) {
@@ -362,12 +381,42 @@ define('IndicatorBase',["TypeCheck", "Interface"], function (TypeCheck, Interfac
     IndicatorBase.prototype.isPositiveNumber = function (number) {
         return number > 0;
     };
+    /** */
     IndicatorBase.prototype.isNegativeNumber = function (number) {
         return number < 0;
     };
+    /** */
+    IndicatorBase.prototype.formatDegreeString = function (degree) {
+        var s = "";
+        degree = degree.toFixed(0);
+        degree = degree.toString();
+        switch (degree.length) {
+            case 1:
+                s = "00" + degree;
+                break;
+            case 2:
+                s = "0" + degree;
+                break;
+            case 3:
+                break;
+        }
+        return s;
+    };
+    /** */
+    IndicatorBase.prototype.getElementCenter = function (element) {
+        var coord = element.getBBox();
+        return {
+            x: coord.x + (coord.width / 2),
+            y: coord.y + (coord.height / 2)
+        };
+    };
     return IndicatorBase;
 });
-define('StickIndicator',["Inheritance", "IndicatorBase"], function (Inheritance, IndicatorBase) { // jscs:ignore
+define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
+
+define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="../img/stick.svg" type="image/svg+xml"></object>\r\n</div>';});
+
+define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
      * Provides functionalty for displaying stick movement values 
      * @alias StickIndicator 
@@ -376,11 +425,13 @@ define('StickIndicator',["Inheritance", "IndicatorBase"], function (Inheritance,
      * @param {Object} options - options object
      */
     var StickIndicator = function (options) {
-        this.svgElement = null;
+        var instance = this;
+        options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("stick-svg");
-        this.stickElement = this.svgElement.getElementById("stick-element");
-        this.stickElement.setAttribute("transform", "");
+        this.init("stick-svg", function () {
+            instance.stickElement = instance.svgElement.getElementById("stick-element");
+            instance.stickElement.setAttribute("transform", "");
+        });
     };
     Inheritance.inheritPrototype(StickIndicator, IndicatorBase);
     /** 
@@ -388,30 +439,35 @@ define('StickIndicator',["Inheritance", "IndicatorBase"], function (Inheritance,
      * @param {Number} y - y value for movement of stick -> Range from -1 to 1
      */
     StickIndicator.prototype.update = function (x, y) {
-        var xValue, yValue;
-        // TODO: BoundCheck einbauen
-        // Set proper x value
-        if (this.isPositiveNumber(x)) {
-            xValue = this.calculatePercentage(x, this.bounds.high);
-        } else if (this.isNegativeNumber(x)) {
-            xValue = this.calculatePercentage(x, this.bounds.low);
-        } else {
-            xValue = 0;
-        }
-        // Set proper y value
-        if (this.isPositiveNumber(y)) {
-            yValue = this.calculatePercentage(y, this.bounds.high);
-        } else if (this.isNegativeNumber(y)) {
-            yValue = this.calculatePercentage(y, this.bounds.low);
-        } else {
-            yValue = 0;
-        }
+        if (this.isReady) {
+            var xValue, yValue;
+            // TODO: BoundCheck einbauen
+            // Set proper x value
+            if (this.isPositiveNumber(x)) {
+                xValue = this.calculatePercentage(x, this.svgBounds.high);
+            } else if (this.isNegativeNumber(x)) {
+                xValue = this.calculatePercentage(x, this.svgBounds.low);
+            } else {
+                xValue = 0;
+            }
+            // Set proper y value
+            if (this.isPositiveNumber(y)) {
+                yValue = this.calculatePercentage(y, this.svgBounds.high);
+            } else if (this.isNegativeNumber(y)) {
+                yValue = this.calculatePercentage(y, this.svgBounds.low);
+            } else {
+                yValue = 0;
+            }
 
-        this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
+            this.stickElement.attributes.transform.nodeValue = "translate(" + xValue + ", " + (-yValue) + ")";
+        }
     };
     return StickIndicator;
 });
-define('PedalIndicator',["Inheritance", "IndicatorBase"], function (Inheritance, IndicatorBase) { // jscs:ignore
+
+define('text!pedal-html',[],function () { return '<div id="pedal-module" style="width: 100%">\r\n        <object id="pedal-svg" style="width: 100%" data="../img/pedal.svg" type="image/svg+xml"></object>\r\n    </div>';});
+
+define('PedalIndicator',["Inheritance", "IndicatorBase", "text!pedal-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
      * Provides functionalty for displaying pedal movement values
      * @alias PedalIndicator 
@@ -420,41 +476,48 @@ define('PedalIndicator',["Inheritance", "IndicatorBase"], function (Inheritance,
      * @param {Object} options - options object
      */
     var PedalIndicator = function (options) {
-        this.svgElement = null;
+        var instance = this;
+        options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("pedal-svg");
-        this.pedalLeftElement = this.svgElement.getElementById("pedal-left-element");
-        this.pedalRightElement = this.svgElement.getElementById("pedal-right-element");
-        this.pedalLeftElement.setAttribute("transform", "");
-        this.pedalRightElement.setAttribute("transform", "");
+        this.init("pedal-svg", function () {
+            instance.pedalLeftElement = instance.svgElement.getElementById("pedal-left-element");
+            instance.pedalRightElement = instance.svgElement.getElementById("pedal-right-element");
+            instance.pedalLeftElement.setAttribute("transform", "");
+            instance.pedalRightElement.setAttribute("transform", "");
+        });
     };
     Inheritance.inheritPrototype(PedalIndicator, IndicatorBase);
     /** */
     PedalIndicator.prototype.update = function (leftY, rightY) {
-        var yleftValue, yRightValue;
-        // TODO: BoundCheck einbauen
-        // Set proper x value
-        if (this.isPositiveNumber(leftY)) {
-            yleftValue = this.calculatePercentage(leftY, this.bounds.high);
-        } else if (this.isNegativeNumber(leftY)) {
-            yleftValue = this.calculatePercentage(leftY, this.bounds.low);
-        } else {
-            yleftValue = 0;
+        if (this.isReady) {
+            var yleftValue, yRightValue;
+            // TODO: BoundCheck einbauen
+            // Set proper x value
+            if (this.isPositiveNumber(leftY)) {
+                yleftValue = this.calculatePercentage(leftY, this.svgBounds.high);
+            } else if (this.isNegativeNumber(leftY)) {
+                yleftValue = this.calculatePercentage(leftY, this.svgBounds.low);
+            } else {
+                yleftValue = 0;
+            }
+            // Set proper y value
+            if (this.isPositiveNumber(rightY)) {
+                yRightValue = this.calculatePercentage(rightY, this.svgBounds.high);
+            } else if (this.isNegativeNumber(rightY)) {
+                yRightValue = this.calculatePercentage(rightY, this.svgBounds.low);
+            } else {
+                yRightValue = 0;
+            }
+            this.pedalLeftElement.attributes.transform.nodeValue = "translate(0, " + (yleftValue) + ")";
+            this.pedalRightElement.attributes.transform.nodeValue = "translate(0, " + (yRightValue) + ")";
         }
-        // Set proper y value
-        if (this.isPositiveNumber(rightY)) {
-            yRightValue = this.calculatePercentage(rightY, this.bounds.high);
-        } else if (this.isNegativeNumber(rightY)) {
-            yRightValue = this.calculatePercentage(rightY, this.bounds.low);
-        } else {
-            yRightValue = 0;
-        }
-        this.pedalLeftElement.attributes.transform.nodeValue = "translate(0, " + (yleftValue) + ")";
-        this.pedalRightElement.attributes.transform.nodeValue = "translate(0, " + (yRightValue) + ")";
     };
     return PedalIndicator;
 });
-define('CollectiveIndicator',["Inheritance", "IndicatorBase"], function (Inheritance, IndicatorBase) { // jscs:ignore
+
+define('text!collective-html',[],function () { return '<div id="collective-module" style="width: 100%">\r\n    <object id="collective-svg" style="width: 100%" data="../img/collective.svg" type="image/svg+xml"></object>\r\n</div>';});
+
+define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
      * Provides functionalty for displaying collective movement values
      * @alias CollectiveIndicator 
@@ -463,48 +526,96 @@ define('CollectiveIndicator',["Inheritance", "IndicatorBase"], function (Inherit
      * @param {Object} options - options object
      */
     var CollectiveIndicator = function (options) {
-        this.svgElement = null;
+        var instance = this;
+        options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init("collective-svg");
-        this.collectiveElement = this.svgElement.getElementById("collective-element");
-        this.collectiveValueText = this.svgElement.getElementById("collective-value-text");
-        this.collectiveElement.setAttribute("transform", "");
+        this.init("collective-svg", function () {
+            instance.collectiveElement = instance.svgElement.getElementById("collective-element");
+            instance.collectiveValueText = instance.svgElement.getElementById("collective-value-text");
+            instance.collectiveElement.setAttribute("transform", "");
+        });
     };
     Inheritance.inheritPrototype(CollectiveIndicator, IndicatorBase);
     /** */
     CollectiveIndicator.prototype.update = function (degree) {
-        degree = degree > 60 ? 60 : degree;
-        degree = degree < 0 ? 0 : degree;
+        if (this.isReady) {
+            degree = degree > 60 ? 60 : degree;
+            degree = degree < 0 ? 0 : degree;
 
-        var coord = this.collectiveElement.getBBox();
-        var centerX = coord.x;
-        var centerY = coord.y + (coord.height / 2);
-        this.collectiveElement.attributes.transform.nodeValue = "rotate(" + -degree + " " + centerX + " " + centerY + ")";
+            var coord = this.collectiveElement.getBBox();
+            var centerX = coord.x;
+            var centerY = coord.y + (coord.height / 2);
+            this.collectiveElement.attributes.transform.nodeValue = "rotate(" + -degree + " " + centerX + " " + centerY + ")";
 
-        degree = degree.toFixed(0);
-        degree = degree.toString();
-        switch (degree.length) {
-            case 1:
-                degree = "00" + degree;
-                break;
-            case 2:
-                degree = "0" + degree;
-                break;
-            case 3:
-                break;
+            degree = degree.toFixed(0);
+            degree = degree.toString();
+            switch (degree.length) {
+                case 1:
+                    degree = "00" + degree;
+                    break;
+                case 2:
+                    degree = "0" + degree;
+                    break;
+                case 3:
+                    break;
+            }
+            this.collectiveValueText.childNodes[0].textContent = degree;
         }
-        this.collectiveValueText.childNodes[0].textContent = degree;
     };
     return CollectiveIndicator;
 });
-define('src/FlightIndicator',[
+
+define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="../img/compass.svg" type="image/svg+xml"></object>\r\n</div>';});
+
+define('CompassIndicator',[ // jscs:ignore
+    "Inheritance",
+    "IndicatorBase",
+    "text!compass-html"
+], function (Inheritance, IndicatorBase, html) { // jscs:ignore
+    /**
+     * Provides functionalty for displaying compass values
+     * @alias CompassIndicator 
+     * @constructor
+     * @extends IndicatorBase
+     * @param {Object} options - options object
+     */
+    var CompassIndicator = function (options) {
+        var instance = this;
+        options.template = html;
+        Inheritance.inheritConstructor(IndicatorBase, this, options);
+
+        this.init("compass-svg", function () {
+            instance.compassRose = instance.svgElement.getElementById("compass-rose");
+            instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
+            instance.compassRose.setAttribute("transform", "");
+        });
+
+    };
+    Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
+    /** @param {Number} degree - range from -360 to 360 */
+    CompassIndicator.prototype.update = function (degree) {
+        if (this.isReady) {
+            degree = degree > 360 ? 360 : degree;
+            degree = degree < -360 ? -360 : degree;
+
+            var center = this.getElementCenter(this.compassRose);
+            this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
+
+            this.compassValueText.childNodes[0].textContent = this.formatDegreeString(degree);
+        }
+    };
+    return CompassIndicator;
+});
+define('src/base/FlightIndicator',[
     "StickIndicator",
     "PedalIndicator",
-    "CollectiveIndicator"
+    "CollectiveIndicator",
+    "CompassIndicator"
 ], function (
     StickIndicator,
     PedalIndicator,
-    CollectiveIndicator
+    CollectiveIndicator,
+    CompassIndicator
 ) {
         /**
          * Provides functionalty for displaying flight parameters 
@@ -514,9 +625,13 @@ define('src/FlightIndicator',[
         return {
             Stick: StickIndicator,
             Pedal: PedalIndicator,
-            Collective: CollectiveIndicator
+            Collective: CollectiveIndicator,
+            Compass: CompassIndicator,
+            setOptions: function (options) {
+
+            }
         };
     });
 
- 	 return require('src/FlightIndicator'); 
+ 	 return require('src/base/FlightIndicator'); 
 }));

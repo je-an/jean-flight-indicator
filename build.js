@@ -3,7 +3,7 @@
     out: 'dist/jean-flight-indicator.js',
     optimize: 'none',
     name: 'node_modules/jean-amd/dist/jean-amd',
-    include: ["src/FlightIndicator"],
+    include: ["src/base/FlightIndicator"],
     wrap: {
         start: 
         "(function (root, factory) { \n" +
@@ -15,18 +15,29 @@
         "\t}\n" +
         "}(this, function() {",
         end:
-        "\n \t return require('src/FlightIndicator'); \n" +
+        "\n \t return require('src/base/FlightIndicator'); \n" +
         "}));"
     },
      paths:{
+        "text": "node_modules/text/text",
         "Inheritance": "node_modules/jean-inheritance/src/Inheritance",
         "TypeCheck": "node_modules/jean-type-check/src/TypeCheck",
         "Failure": "node_modules/jean-failure/src/Failure",
         "Interface": "node_modules/jean-interface/src/Interface",
         "NotImplementedError": "node_modules/jean-interface/src/NotImplementedError",
-        "CollectiveIndicator": "src/CollectiveIndicator",
-        "PedalIndicator": "src/PedalIndicator",
-        "StickIndicator": "src/StickIndicator",
-        "IndicatorBase": "src/IndicatorBase"
-    }
+        
+        "IndicatorBase": "src/Base/IndicatorBase",
+        "CompassIndicator": "src/Compass/CompassIndicator",
+        "compass-html": "src/Compass/html/compass.html",
+
+        "CollectiveIndicator": "src/Collective/CollectiveIndicator",
+        "collective-html": "src/Collective/html/collective.html",
+
+        "PedalIndicator": "src/Pedal/PedalIndicator",
+        "pedal-html": "src/Pedal/html/pedal.html",
+
+        "StickIndicator": "src/Stick/StickIndicator",
+        "stick-html": "src/Stick/html/stick.html"
+    },
+    stubModules: ["text"]
 })

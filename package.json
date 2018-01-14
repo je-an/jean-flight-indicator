@@ -14,7 +14,8 @@
     "jean-failure": "^1.0.0",
     "jean-inheritance": "^1.0.3",
     "jean-interface": "^1.0.2",
-    "jean-type-check": "^1.0.5"
+    "jean-type-check": "^1.0.5",
+    "text": "github:requirejs/text"
   },
   "repository": {
     "type": "git",
