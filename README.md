@@ -27,7 +27,7 @@ Standard
 
 |     Compass     |    Speed      |      Altitude    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator][logo-compass]     |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
+|     ![compass indicator](img/compass.preview.png)     |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
 |     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude    |
 
 ---
