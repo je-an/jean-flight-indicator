@@ -1,0 +1,29 @@
+{
+  "name": "jean-flight-indicator",
+  "version": "1.0.0",
+  "description": "Provides functionalty for displaying flight parameters",
+  "main": "dist/jean-flight-indicator.js",
+  "scripts": {
+    "test": "open spec/spec-runner.html in browser"
+  },
+  "keywords": [],
+  "author": "Jeremias Andris",
+  "license": "MIT",
+  "dependencies": {
+    "jean-amd": "1.0.1",
+    "jean-failure": "^1.0.0",
+    "jean-inheritance": "^1.0.3",
+    "jean-interface": "^1.0.2",
+    "jean-type-check": "^1.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/je-an/jean-flight-indicator.git"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "jean-navbar": "^1.0.1",
+    "jquery": "^3.2.1",
+    "requirejs": "^2.3.5"
+  }
+}
