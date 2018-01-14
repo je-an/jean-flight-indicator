@@ -47,8 +47,8 @@ Helicopter specific
 
 ## Code Example
 - Use it as browser variable
-```js
 
+```js
 // Set basic options for all flight indicators
 FlightIndicator.setOptions({
         assets: "../img/" // path where the svgs are located
@@ -81,7 +81,9 @@ pedal.update(
 );
 collective.update(/* number within range from 60 to 0 */);
 ```
+
 - Use it with require.js
+
 ```js
 require(["path/to/FlightIndicator"], function(FlightIndicator){
     // Work with FlightIndicator
