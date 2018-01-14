@@ -17,19 +17,7 @@ $(document).ready(function () {
     var collective = new FlightIndicator.Collective({
         containerId: "collective-container"
     });
-
-
-
     var isStarted = false, interval;
-    /* 
-        var g = new ValueGenerator(100); */
-
-    /* console.log(Math.sin(0));
-    console.log(Math.sin(0.25));
-    console.log(Math.sin(0.5));
-    console.log(Math.sin(0.75));
-    console.log(Math.sin(1)); */
-
     var n = new Navbar({
         containerId: "jean-navbar-container",
         title: "Flight Indicators",
@@ -81,7 +69,6 @@ $(document).ready(function () {
                     compassI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
-
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");

@@ -28,7 +28,7 @@
         }
 
         .row-top {
-            margin-top: 150px;
+            margin-top: 50px;
         }
 
         .row-standard {
@@ -38,43 +38,78 @@
         .jean-navbar {
             z-index: 100;
         }
+
+        h1, h2 {
+            text-align: center;
+            color: #40CAB4;
+            font-weight: bold;
+            font-family: "Calibri";
+        }
     </style>
 </head>
 
 <body>
     <section id="jean-navbar-container"></section>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row row-top">
-            <div class="col-xs-4 col-sm-4 col-md-4">
+            <div class="col-md-offset-4 col-md-4">
+                <h1>Standard </h1>
+            </div>
+        </div>
+        <div class="row row-standard">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Compass </h2>
                 <div id="compass-container"></div>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Speed </h2>
                 <div id="cm-module">
                     <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
                 </div>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Altitude </h2>
+                <div id="cm-module">
+                    <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Horizon </h2>
+                <div id="cm-module">
+                    <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Vertical Speed </h2>
+                <div id="cm-module">
+                    <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Turn </h2>
                 <div id="cm-module">
                     <object id="cm-svg" data="../img/coming_soon.svg" type="image/svg+xml"></object>
                 </div>
             </div>
         </div>
         <div class="row row-standard">
-            <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="stick-container">
-                    <object id="stick-svg" data="../img/stick.svg" type="image/svg+xml"></object>
+                <div class="col-md-offset-4 col-md-4">
+                    <h1>Helicopter specific </h1>
                 </div>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="pedal-container">
-                    <object id="pedal-svg" data="../img/pedal.svg" type="image/svg+xml"></object>
-                </div>
+        <div class="row row-standard">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Stick </h2>
+                <div id="stick-container"></div>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4">
-                <div id="collective-container">
-                    <object id="collective-svg" data="../img/collective.svg" type="image/svg+xml"></object>
-                </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Pedal </h2>
+                <div id="pedal-container"></div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <h2> Collective </h2>
+                <div id="collective-container"></div>
             </div>
         </div>
     </div>

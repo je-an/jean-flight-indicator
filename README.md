@@ -18,7 +18,7 @@ Provides functionality for displaying flight parameters
 
 ## Preview
 
-Standard indicator
+Standard
 ---
 
 |     Compass     |    Speed      |      Altitude    |
@@ -39,7 +39,7 @@ Helicopter specific
 |     Stick     |    Pedal      |      Collective    |
 |:----------:|:----------:|:----------:|
 |     ![Stick indicator][logo-stick]     |     ![Pedal indicator][logo-pedal]      |   ![Collective indicator][logo-collective]       |
-|     Shows the position of <br> the helicopters stick     |     Shows the positions of <br> the helicopter pedals     |  Shows the position of <br> the helicopters collective hand gear        |
+|     Displays helicopter stick position     |     Displays helicopter pedal position    |  Displays helicopter collective hand gear position       |
 
 ## Support
 Supports AMD eco system. If there is no loader, FlightIndicator is registered as a browser variable.
