@@ -1,16 +1,16 @@
-[logo-compass]: img/compass.png 
-[logo-speed]: img/speed.png 
-[logo-altitude]: img/altitude.png 
+[logo-compass]: img/compass.svg 
+[logo-speed]: img/speed.svg 
+[logo-altitude]: img/altitude.svg 
 
-[logo-horizon]: img/horizon.png 
-[logo-vertical-speed]: img/vertical-speed.png 
-[logo-altitude]: img/altitude.png 
+[logo-horizon]: img/horizon.svg 
+[logo-vertical-speed]: img/vertical-speed.svg 
+[logo-altitude]: img/altitude.svg 
 
-[logo-stick]: img/stick.png 
-[logo-pedal]: img/pedal.png 
-[logo-collective]: img/collective.png
+[logo-stick]: img/stick.svg 
+[logo-pedal]: img/pedal.svg 
+[logo-collective]: img/collective.svg
 
-[logo-coming-soon]: img/coming_soon.png
+[logo-coming-soon]: img/coming_soon.svg
 
 ## Description
 

@@ -1,6 +1,6 @@
 {
   "name": "jean-flight-indicator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides functionalty for displaying flight parameters",
   "main": "dist/jean-flight-indicator.js",
   "scripts": {
