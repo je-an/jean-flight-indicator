@@ -22,6 +22,8 @@ Provides functionality for displaying flight parameters.
 
 ## Preview
 
+- Visit an  [implemented example](https://je-an.github.io/jean-flight-indicator/example/index.html)
+
 Standard
 ---
 
@@ -90,7 +92,9 @@ require(["path/to/FlightIndicator"], function(FlightIndicator){
 });
 ```
 
-- For an implemented example visit `example/index.html` and `example/index.js`
+## Debugging
+
+- Host `example/index.html` and display it in your browser
 
 ## Support
 Supports AMD eco system. If there is no loader, FlightIndicator is registered as a browser variable.
