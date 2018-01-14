@@ -14,7 +14,11 @@
 
 ## Description
 
-Provides functionality for displaying flight parameters
+Provides functionality for displaying flight parameters.
+
+## Installation
+
+`npm install jean-flight-indicator --save --legacy-bundling`
 
 ## Preview
 
