@@ -19,7 +19,7 @@ Provides functionality for displaying flight parameters.
 ## Installation
 
 `npm install jean-flight-indicator --save --legacy-bundling`
-
+  
 ## Preview
 
 - Visit an  [implemented example](https://je-an.github.io/jean-flight-indicator/example/index.html)
@@ -29,7 +29,7 @@ Standard
 
 |     Compass     |    Speed      |      Altitude    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
+|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-speed]      |   ![Altitude indicator][logo-coming-soon]       |
 |     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude    |
 
 ---
@@ -57,7 +57,10 @@ FlightIndicator.setOptions({
 });
 
 // Create all indicator and pass the id of the html element 
-// which shall be used as
+// which shall be used as container
+ var speed = new FlightIndicator.Speed({
+        containerId: "speed-container"
+});
 var compass = new FlightIndicator.Compass({
     containerId: "compass-container"
 });
@@ -72,6 +75,7 @@ var collective = new FlightIndicator.Collective({
 });
 
 // Update methods. 
+speed.update(/* number within range from 0 to 160 */);
 compass.update(/* number within range from 360 to -360 */);
 stick.update(
     /* number within range from 1 to -1 */, 

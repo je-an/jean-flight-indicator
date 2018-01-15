@@ -1,16 +1,18 @@
 define([
     "TypeCheck",
+    "SpeedIndicator",
+    "CompassIndicator",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
-    "CompassIndicator",
     "BaseOptions"
 ], function (
     TypeCheck,
+    SpeedIndicator,
+    CompassIndicator,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
-    CompassIndicator,
     BaseOptions
 ) {
         /**
@@ -19,10 +21,11 @@ define([
          * @constructor
          */
         return {
+            Compass: CompassIndicator,
+            Speed: SpeedIndicator,
             Stick: StickIndicator,
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,
-            Compass: CompassIndicator,
             /**
              * @param {Object} options - options object
              * @param {String} options.assets - path to svgs and other assets

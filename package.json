@@ -14,8 +14,7 @@
     "jean-failure": "^1.0.0",
     "jean-inheritance": "^1.0.3",
     "jean-interface": "^1.0.2",
-    "jean-type-check": "^1.0.5",
-    "text": "github:requirejs/text"
+    "jean-type-check": "^1.0.5"
   },
   "repository": {
     "type": "git",
@@ -25,6 +24,7 @@
     "bootstrap": "^3.3.7",
     "jean-navbar": "^1.0.1",
     "jquery": "^3.2.1",
-    "requirejs": "^2.3.5"
+    "requirejs": "^2.3.5",
+    "text": "github:requirejs/text"
   }
 }

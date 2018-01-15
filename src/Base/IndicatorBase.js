@@ -80,10 +80,10 @@ define([ // jscs:ignore
     };
     /** */
     IndicatorBase.prototype.getElementCenter = function (element) {
-        var coord = element.getBBox();
+        var box = element.getBBox();
         return {
-            x: coord.x + (coord.width / 2),
-            y: coord.y + (coord.height / 2)
+            x: box.x + (box.width / 2),
+            y: box.y + (box.height / 2)
         };
     };
     return IndicatorBase;

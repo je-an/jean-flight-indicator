@@ -421,15 +421,103 @@ define('IndicatorBase',[ // jscs:ignore
     };
     /** */
     IndicatorBase.prototype.getElementCenter = function (element) {
-        var coord = element.getBBox();
+        var box = element.getBBox();
         return {
-            x: coord.x + (coord.width / 2),
-            y: coord.y + (coord.height / 2)
+            x: box.x + (box.width / 2),
+            y: box.y + (box.height / 2)
         };
     };
     return IndicatorBase;
 });
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
+
+define('text!speed-html',[],function () { return '<div id="speed-module" style="width: 100%">\r\n    <object id="speed-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
+
+define('SpeedIndicator',[ // jscs:ignore
+    "Inheritance",
+    "IndicatorBase",
+    "text!speed-html"
+], function (Inheritance, IndicatorBase, html) { // jscs:ignore
+    /**
+     * Provides functionalty for displaying compass values
+     * @alias SpeedIndicator 
+     * @constructor
+     * @extends IndicatorBase
+     * @param {Object} options - options object
+     */
+    var SpeedIndicator = function (options) {
+        var instance = this;
+        options.template = html;
+        Inheritance.inheritConstructor(IndicatorBase, this, options);
+        this.init({
+            svgId: "speed-svg",
+            svgDataName: "speed.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.speedNeedle = instance.svgElement.getElementById("speed-needle");
+                instance.speedValueText = instance.svgElement.getElementById("speed-value-text");
+                instance.speedNeedle.setAttribute("transform", "");
+            }
+        });
+    };
+    Inheritance.inheritPrototype(SpeedIndicator, IndicatorBase);
+    /** @param {Number} speedInKts - range from 0 to 160 */
+    SpeedIndicator.prototype.update = function (speedInKts) {
+        if (this.isReady) {
+            speedInKts = speedInKts > 160 ? 160 : speedInKts;
+            speedInKts = speedInKts < 0 ? 0 : speedInKts;
+            var box = this.speedNeedle.getBBox();
+            box.x = box.x + (box.width / 2);
+            box.y = box.y + box.height * 0.94; 
+            this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
+            this.speedValueText.childNodes[0].textContent = this.formatDegreeString(speedInKts);
+        }
+    };
+    return SpeedIndicator;
+});
+
+define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
+
+define('CompassIndicator',[ // jscs:ignore
+    "Inheritance",
+    "IndicatorBase",
+    "text!compass-html"
+], function (Inheritance, IndicatorBase, html) { // jscs:ignore
+    /**
+     * Provides functionalty for displaying compass values
+     * @alias CompassIndicator 
+     * @constructor
+     * @extends IndicatorBase
+     * @param {Object} options - options object
+     */
+    var CompassIndicator = function (options) {
+        var instance = this;
+        options.template = html;
+        Inheritance.inheritConstructor(IndicatorBase, this, options);
+        this.init({
+            svgId: "compass-svg",
+            svgDataName: "compass.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.compassRose = instance.svgElement.getElementById("compass-rose");
+                instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
+                instance.compassRose.setAttribute("transform", "");
+            }
+        });
+    };
+    Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
+    /** @param {Number} degree - range from -360 to 360 */
+    CompassIndicator.prototype.update = function (degree) {
+        if (this.isReady) {
+            degree = degree > 360 ? 360 : degree;
+            degree = degree < -360 ? -360 : degree;
+
+            var center = this.getElementCenter(this.compassRose);
+            this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
+
+            this.compassValueText.childNodes[0].textContent = this.formatDegreeString(degree);
+        }
+    };
+    return CompassIndicator;
+});
 
 define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
@@ -579,63 +667,21 @@ define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-h
     };
     return CollectiveIndicator;
 });
-
-define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
-
-define('CompassIndicator',[ // jscs:ignore
-    "Inheritance",
-    "IndicatorBase",
-    "text!compass-html"
-], function (Inheritance, IndicatorBase, html) { // jscs:ignore
-    /**
-     * Provides functionalty for displaying compass values
-     * @alias CompassIndicator 
-     * @constructor
-     * @extends IndicatorBase
-     * @param {Object} options - options object
-     */
-    var CompassIndicator = function (options) {
-        var instance = this;
-        options.template = html;
-        Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init({
-            svgId: "compass-svg",
-            svgDataName: "compass.svg",
-            onSvgReady: function () { // jscs:ignore
-                instance.compassRose = instance.svgElement.getElementById("compass-rose");
-                instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
-                instance.compassRose.setAttribute("transform", "");
-            }
-        });
-    };
-    Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
-    /** @param {Number} degree - range from -360 to 360 */
-    CompassIndicator.prototype.update = function (degree) {
-        if (this.isReady) {
-            degree = degree > 360 ? 360 : degree;
-            degree = degree < -360 ? -360 : degree;
-
-            var center = this.getElementCenter(this.compassRose);
-            this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
-
-            this.compassValueText.childNodes[0].textContent = this.formatDegreeString(degree);
-        }
-    };
-    return CompassIndicator;
-});
 define('src/base/FlightIndicator',[
     "TypeCheck",
+    "SpeedIndicator",
+    "CompassIndicator",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
-    "CompassIndicator",
     "BaseOptions"
 ], function (
     TypeCheck,
+    SpeedIndicator,
+    CompassIndicator,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
-    CompassIndicator,
     BaseOptions
 ) {
         /**
@@ -644,10 +690,11 @@ define('src/base/FlightIndicator',[
          * @constructor
          */
         return {
+            Compass: CompassIndicator,
+            Speed: SpeedIndicator,
             Stick: StickIndicator,
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,
-            Compass: CompassIndicator,
             /**
              * @param {Object} options - options object
              * @param {String} options.assets - path to svgs and other assets

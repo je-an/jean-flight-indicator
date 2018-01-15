@@ -5,6 +5,9 @@ $(document).ready(function () {
     FlightIndicator.setOptions({
         assets: "../img/"
     });
+    var speed = new FlightIndicator.Speed({
+        containerId: "speed-container"
+    });
     var compass = new FlightIndicator.Compass({
         containerId: "compass-container"
     });
@@ -29,8 +32,10 @@ $(document).ready(function () {
                 isStarted = false;
                 $("#id-Start").find(".text").html("Start");
             } else {
-                var compassI = 0, stickI = 0, collectiveI = 0, countDownStick = false, countUpStick = true,
-                    countDownCollective = false, countUpCollective = true;
+                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0,
+                    countDownStick = false, countUpStick = true,
+                    countDownCollective = false, countUpCollective = true,
+                    countDownSpeed = false, countUpSpeed = true;
                 function generateStickIncrement() {
                     if (countDownStick) {
                         stickI = stickI - 0.01;
@@ -61,14 +66,31 @@ $(document).ready(function () {
                         }
                     }
                 }
+                function generateSpeedIncrement() {
+                    if (countDownSpeed) {
+                        speedI = speedI - 0.01;
+                        if (speedI <= 0) {
+                            countUpSpeed = true;
+                            countDownSpeed = false;
+                        }
+                    } else if (countUpSpeed) {
+                        speedI = speedI + 0.01;
+                        if (speedI >= 1) {
+                            countUpSpeed = false;
+                            countDownSpeed = true;
+                        }
+                    }
+                }
                 interval = setInterval(function () {
                     pedal.update(collectiveI, collectiveI);
                     compass.update(Math.sin(compassI / 500) * 360);
                     stick.update(stickI * 1, stickI * 1);
                     collective.update(collectiveI * 60);
+                    speed.update(speedI * 160);
                     compassI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
+                    generateSpeedIncrement();
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");
@@ -78,7 +100,5 @@ $(document).ready(function () {
     n.create();
     $("#id-Start").css("background", "#40CAB4");
     $("#id-Start").css("border-radius", "5px");
-    function updateCompass(i) {
 
-    }
 });

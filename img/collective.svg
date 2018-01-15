@@ -26,21 +26,21 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="62.707421"
-     inkscape:cy="225.14367"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="441.4965"
+     inkscape:cy="445.73782"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="1072"
-     inkscape:window-maximized="1"
+     inkscape:window-width="958"
+     inkscape:window-height="1008"
+     inkscape:window-x="-7"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:measure-start="175.714,540"
-     inkscape:measure-end="165.714,-12.8571">
+     inkscape:measure-start="435.881,462.776"
+     inkscape:measure-end="435.881,449.013">
     <sodipodi:guide
        position="250.01276,431.33514"
        orientation="1,0"
@@ -452,25 +452,25 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="365.89285"
-       y="80.857147"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="383.19171"
+       y="72.66996"
        id="collective-value-text"><tspan
          sodipodi:role="line"
          id="tspan896"
-         x="365.89285"
-         y="80.857147"
-         style="fill:#ffffff">000</tspan></text>
+         x="383.19171"
+         y="72.66996"
+         style="font-size:32px;fill:#ffffff">000</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
-       x="437.73007"
-       y="72.851372"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+       x="441.01306"
+       y="66.159111"
        id="text902"><tspan
          sodipodi:role="line"
          id="tspan900"
-         x="437.73007"
-         y="72.851372">°</tspan></text>
+         x="441.01306"
+         y="66.159111">°</tspan></text>
     <rect
        style="fill:#ff7f00;fill-opacity:1;stroke:none;stroke-width:0.88930839;stroke-opacity:1"
        id="collective-element"

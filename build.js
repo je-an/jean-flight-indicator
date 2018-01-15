@@ -29,17 +29,20 @@
         "BaseOptions": "src/Base/BaseOptions",
         "IndicatorBase": "src/Base/IndicatorBase",
 
+        "SpeedIndicator": "src/Speed/SpeedIndicator",
+        "speed-html": "src/Speed/html/speed.html",
+
         "CompassIndicator": "src/Compass/CompassIndicator",
         "compass-html": "src/Compass/html/compass.html",
 
-        "CollectiveIndicator": "src/Collective/CollectiveIndicator",
-        "collective-html": "src/Collective/html/collective.html",
+        "StickIndicator": "src/Stick/StickIndicator",
+        "stick-html": "src/Stick/html/stick.html",
 
         "PedalIndicator": "src/Pedal/PedalIndicator",
         "pedal-html": "src/Pedal/html/pedal.html",
 
-        "StickIndicator": "src/Stick/StickIndicator",
-        "stick-html": "src/Stick/html/stick.html"
+        "CollectiveIndicator": "src/Collective/CollectiveIndicator",
+        "collective-html": "src/Collective/html/collective.html",
     },
     stubModules: ["text"]
 })
