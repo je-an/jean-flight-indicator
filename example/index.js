@@ -76,6 +76,8 @@ $(document).ready(function () {
         }
     });
     n.create();
+    $("#id-Start").css("background", "#40CAB4");
+    $("#id-Start").css("border-radius", "5px");
     function updateCompass(i) {
 
     }
