@@ -1,28 +1,31 @@
 define([
     "TypeCheck",
-    "SpeedIndicator",
     "CompassIndicator",
+    "SpeedIndicator",
+    "AltitudeIndicator",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
     "BaseOptions"
 ], function (
     TypeCheck,
-    SpeedIndicator,
     CompassIndicator,
+    SpeedIndicator,
+    AltitudeIndicator,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
     BaseOptions
 ) {
         /**
-         * Provides functionalty for displaying flight parameters 
+         * Provides functionality for displaying flight parameters 
          * @alias FlightIndicator 
          * @constructor
          */
         return {
             Compass: CompassIndicator,
             Speed: SpeedIndicator,
+            Altitude: AltitudeIndicator,
             Stick: StickIndicator,
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,

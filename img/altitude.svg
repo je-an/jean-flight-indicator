@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.9999998"
-     inkscape:cx="224.11622"
-     inkscape:cy="403.84393"
+     inkscape:zoom="1.4142135"
+     inkscape:cx="32.872499"
+     inkscape:cy="190.44548"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1500,7 +1500,7 @@
          style="fill:#666666;fill-opacity:1;stroke:#666666;stroke-width:0.84246266;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
     <g
-       id="g1072"
+       id="needle-alt-tenthousand"
        inkscape:transform-center-y="-90.342706"
        inkscape:transform-center-x="-18.703374">
       <path
@@ -1564,7 +1564,7 @@
        style="font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
        x="331.55939"
        y="65.248627"
-       id="text1847"><tspan
+       id="altitude-value-text"><tspan
          sodipodi:role="line"
          id="tspan1845"
          x="331.55939"

@@ -5,11 +5,14 @@ $(document).ready(function () {
     FlightIndicator.setOptions({
         assets: "../img/"
     });
+    var compass = new FlightIndicator.Compass({
+        containerId: "compass-container"
+    });
     var speed = new FlightIndicator.Speed({
         containerId: "speed-container"
     });
-    var compass = new FlightIndicator.Compass({
-        containerId: "compass-container"
+    var altitude = new FlightIndicator.Altitude({
+        containerId: "altitude-container"
     });
     var stick = new FlightIndicator.Stick({
         containerId: "stick-container"
@@ -32,10 +35,11 @@ $(document).ready(function () {
                 isStarted = false;
                 $("#id-Start").find(".text").html("Start");
             } else {
-                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0,
+                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0,
                     countDownStick = false, countUpStick = true,
                     countDownCollective = false, countUpCollective = true,
                     countDownSpeed = false, countUpSpeed = true;
+                    countDownAltitude = false, countUpAltitude = true;
                 function generateStickIncrement() {
                     if (countDownStick) {
                         stickI = stickI - 0.01;
@@ -81,16 +85,33 @@ $(document).ready(function () {
                         }
                     }
                 }
+                function generateAltitudeIncrement() {
+                    if (countDownAltitude) {
+                        altitudeI = altitudeI - 0.0001;
+                        if (altitudeI <= 0) {
+                            countUpAltitude = true;
+                            countDownAltitude = false;
+                        }
+                    } else if (countUpSpeed) {
+                        altitudeI = altitudeI + 0.0001;
+                        if (speedI >= 1) {
+                            countUpAltitude = false;
+                            countDownAltitude = true;
+                        }
+                    }
+                }
                 interval = setInterval(function () {
                     pedal.update(collectiveI, collectiveI);
                     compass.update(Math.sin(compassI / 500) * 360);
                     stick.update(stickI * 1, stickI * 1);
                     collective.update(collectiveI * 60);
                     speed.update(speedI * 160);
+                    altitude.update(altitudeI * 99999);
                     compassI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
                     generateSpeedIncrement();
+                    generateAltitudeIncrement();
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");

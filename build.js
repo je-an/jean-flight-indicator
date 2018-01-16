@@ -29,11 +29,14 @@
         "BaseOptions": "src/Base/BaseOptions",
         "IndicatorBase": "src/Base/IndicatorBase",
 
+        "CompassIndicator": "src/Compass/CompassIndicator",
+        "compass-html": "src/Compass/html/compass.html",
+
         "SpeedIndicator": "src/Speed/SpeedIndicator",
         "speed-html": "src/Speed/html/speed.html",
 
-        "CompassIndicator": "src/Compass/CompassIndicator",
-        "compass-html": "src/Compass/html/compass.html",
+        "AltitudeIndicator": "src/Altitude/AltitudeIndicator",
+        "altitude-html": "src/Altitude/html/altitude.html",
 
         "StickIndicator": "src/Stick/StickIndicator",
         "stick-html": "src/Stick/html/stick.html",
