@@ -14,7 +14,7 @@
 
 ## Description
 
-Provides functionality for displaying flight parameters.
+Provides Javascript animated SVGs that support the standard flight parameter indicators for heading, speed, altitude, pitch and roll, vertical speed and turn. In addition, helicopter-specific flight parameter indicators are available for stick positioning, pedal positioning and the angle of the collective lever. 
 
 ## Installation
 
@@ -29,8 +29,8 @@ Standard
 
 |     Compass     |    Speed      |      Altitude    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-speed]      |   ![Altitude indicator][logo-coming-soon]       |
-|     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude    |
+|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-speed]      |   ![Altitude indicator][logo-altitude]       |
+|     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude <br>[Under construction]   |
 
 ---
 
@@ -64,6 +64,9 @@ FlightIndicator.setOptions({
 var compass = new FlightIndicator.Compass({
     containerId: "compass-container"
 });
+var altitude = new FlightIndicator.Altitude({
+    containerId: "altitude-container"
+});
 var stick = new FlightIndicator.Stick({
     containerId: "stick-container"
 });
@@ -75,8 +78,9 @@ var collective = new FlightIndicator.Collective({
 });
 
 // Update methods. 
-speed.update(/* number within range from 0 to 160 */);
-compass.update(/* number within range from 360 to -360 */);
+speed.update(/* number within range from 0kt to 160kt */);
+compass.update(/* number within range from 360° to -360° */);
+altitude.update(/* number within range from 0ft to 99999ft */);
 stick.update(
     /* number within range from 1 to -1 */, 
     /* number within range from 1 to -1 */
@@ -85,7 +89,7 @@ pedal.update(
     /* number within range from 1 to 0 */, 
     /* number within range from 1 to 0 */
 );
-collective.update(/* number within range from 60 to 0 */);
+collective.update(/* number within range from 0° to 90° */);
 ```
 
 - Use it with require.js
