@@ -589,7 +589,6 @@ define('AltitudeIndicator',["Inheritance", "IndicatorBase", "text!altitude-html"
                 degreePerThousandFeet = this.degreePerThousandFeet,
                 degreePerTenthousandFeet = this.degreePerTenthousandFeet;
 
-            console.log(feet);
             this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
             this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
             this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
