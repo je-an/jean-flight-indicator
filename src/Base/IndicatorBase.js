@@ -79,6 +79,30 @@ define([ // jscs:ignore
         return s;
     };
     /** */
+    IndicatorBase.prototype.formatFeetString = function(feet){
+        var s = "";
+        feet = feet.toFixed(0);
+        feet = feet.toString();
+        switch (feet.length) {
+            case 1:
+                s = "0000" + feet;
+                break;
+            case 2:
+                s = "000" + feet;
+                break;
+            case 3:
+                s = "00" + feet;
+                break;
+            case 4:
+                s = "0" + feet;
+                break;
+            case 5:
+                s = feet;
+                break;
+        }
+        return s;
+    };
+    /** */
     IndicatorBase.prototype.getElementCenter = function (element) {
         var box = element.getBBox();
         return {

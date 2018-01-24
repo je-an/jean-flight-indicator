@@ -420,6 +420,30 @@ define('IndicatorBase',[ // jscs:ignore
         return s;
     };
     /** */
+    IndicatorBase.prototype.formatFeetString = function(feet){
+        var s = "";
+        feet = feet.toFixed(0);
+        feet = feet.toString();
+        switch (feet.length) {
+            case 1:
+                s = "0000" + feet;
+                break;
+            case 2:
+                s = "000" + feet;
+                break;
+            case 3:
+                s = "00" + feet;
+                break;
+            case 4:
+                s = "0" + feet;
+                break;
+            case 5:
+                s = feet;
+                break;
+        }
+        return s;
+    };
+    /** */
     IndicatorBase.prototype.getElementCenter = function (element) {
         var box = element.getBBox();
         return {
@@ -546,22 +570,30 @@ define('AltitudeIndicator',["Inheritance", "IndicatorBase", "text!altitude-html"
                 instance.tenthousandNeedle.setAttribute("transform", "");
             }
         });
+        this.degreePerHundredFeet = 360 / 1000;
+        this.degreePerThousandFeet = 360 / 10000;
+        this.degreePerTenthousandFeet = 360 / 100000;
     };
     Inheritance.inheritPrototype(AltitudeIndicator, IndicatorBase);
     /** @param {Number} feet - range from 0ft to 99.999ft */
     AltitudeIndicator.prototype.update = function (feet) {
         if (this.isReady) {
-            feet = feet > 99999 ? 99999 : feet;
+            feet = feet > 100000 ? 100000 : feet;
             feet = feet < 0 ? 0 : feet;
 
             var box = this.hundredNeedle.getBBox();
             box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94; 
+            box.y = box.y + box.height * 0.94;
 
-            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + feet + " " + box.x + " " + box.y + ")";
-            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + feet / 2 + " " + box.x + " " + box.y + ")";
-            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + feet / 4 + " " + box.x + " " + box.y + ")";
-            this.altitudeValueText.childNodes[0].textContent = this.formatDegreeString(feet);
+            var degreePerHundredFeet = this.degreePerHundredFeet,
+                degreePerThousandFeet = this.degreePerThousandFeet,
+                degreePerTenthousandFeet = this.degreePerTenthousandFeet;
+
+            console.log(feet);
+            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
+            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.altitudeValueText.childNodes[0].textContent = this.formatFeetString(feet);
         }
     };
     return AltitudeIndicator;

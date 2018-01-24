@@ -23,22 +23,30 @@ define(["Inheritance", "IndicatorBase", "text!altitude-html"], function (Inherit
                 instance.tenthousandNeedle.setAttribute("transform", "");
             }
         });
+        this.degreePerHundredFeet = 360 / 1000;
+        this.degreePerThousandFeet = 360 / 10000;
+        this.degreePerTenthousandFeet = 360 / 100000;
     };
     Inheritance.inheritPrototype(AltitudeIndicator, IndicatorBase);
     /** @param {Number} feet - range from 0ft to 99.999ft */
     AltitudeIndicator.prototype.update = function (feet) {
         if (this.isReady) {
-            feet = feet > 99999 ? 99999 : feet;
+            feet = feet > 100000 ? 100000 : feet;
             feet = feet < 0 ? 0 : feet;
 
             var box = this.hundredNeedle.getBBox();
             box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94; 
+            box.y = box.y + box.height * 0.94;
 
-            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + feet + " " + box.x + " " + box.y + ")";
-            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + feet / 2 + " " + box.x + " " + box.y + ")";
-            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + feet / 4 + " " + box.x + " " + box.y + ")";
-            this.altitudeValueText.childNodes[0].textContent = this.formatDegreeString(feet);
+            var degreePerHundredFeet = this.degreePerHundredFeet,
+                degreePerThousandFeet = this.degreePerThousandFeet,
+                degreePerTenthousandFeet = this.degreePerTenthousandFeet;
+
+            console.log(feet);
+            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
+            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.altitudeValueText.childNodes[0].textContent = this.formatFeetString(feet);
         }
     };
     return AltitudeIndicator;
