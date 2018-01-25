@@ -79,11 +79,14 @@ define([ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatFeetString = function(feet){
+    IndicatorBase.prototype.formatFeetString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);
         feet = feet.toString();
         switch (feet.length) {
+            case 0:
+                s = "00000";
+                break;
             case 1:
                 s = "0000" + feet;
                 break;
@@ -97,6 +100,9 @@ define([ // jscs:ignore
                 s = "0" + feet;
                 break;
             case 5:
+                s = feet;
+                break;
+            case 6:
                 s = feet;
                 break;
         }
