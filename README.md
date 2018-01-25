@@ -37,7 +37,7 @@ Standard
 |     Horizon     |   Vertical Speed      |      Turn    |
 |:----------:|:----------:|:----------:|
 |     ![compass indicator][logo-horizon]     |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
-|    Displays aircraft pitch and roll <br>[Under construction] |     Displays aircraft vertical speed     |  Displays aircraft turn       |    
+|    Displays aircraft pitch and roll |     Displays aircraft vertical speed     |  Displays aircraft turn       |    
 
 Helicopter specific
 ---
@@ -57,7 +57,7 @@ FlightIndicator.setOptions({
 });
 
 // Create all indicator and pass the id of the html element 
-// which shall be used as container
+// which shall be used as container for the specific indicator svg
  var speed = new FlightIndicator.Speed({
         containerId: "speed-container"
 });
@@ -66,6 +66,9 @@ var compass = new FlightIndicator.Compass({
 });
 var altitude = new FlightIndicator.Altitude({
     containerId: "altitude-container"
+});
+var horizon = new FlightIndicator.Horizon({
+    containerId: "horizon-container"
 });
 var stick = new FlightIndicator.Stick({
     containerId: "stick-container"
@@ -78,9 +81,16 @@ var collective = new FlightIndicator.Collective({
 });
 
 // Update methods. 
+// Call this methods for each new value you want to display
+// For a smooth visualisation of the values within the specific indicator, 
+// it is recommended to update every 50ms.
 speed.update(/* number within range from 0kt to 160kt */);
 compass.update(/* number within range from 360° to -360° */);
 altitude.update(/* number within range from 0ft to 99999ft */);
+horizon.update(
+    /* number within range from 40 to -40 */, 
+    /* number within range from 30 to -30 */
+);
 stick.update(
     /* number within range from 1 to -1 */, 
     /* number within range from 1 to -1 */

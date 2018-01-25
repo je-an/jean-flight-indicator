@@ -48,17 +48,7 @@ define(["Inheritance", "IndicatorBase", "text!horizon-html"], function (Inherita
 
             var center = this.getElementCenter(this.horizonElement);
             this.horizonElement.attributes.transform.nodeValue = "translate(0, " + pixelBound.PIXELS_PER_PITCH * pitch + ")" + " rotate(" + roll + " " + center.x + " " + center.y + ")";
-            /* this.horizonElement.attributes.transform.nodeValue = "rotate(" + roll + " " + center.x + " " + center.y + ")"; */
         }
     };
     return HorizonIndicator;
 });
-/* 
-128   -> 40
-  1   ->  0,3125
-  3,2 ->  1
-
-
-
--128 -> -40 
-*/

@@ -656,20 +656,10 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
 
             var center = this.getElementCenter(this.horizonElement);
             this.horizonElement.attributes.transform.nodeValue = "translate(0, " + pixelBound.PIXELS_PER_PITCH * pitch + ")" + " rotate(" + roll + " " + center.x + " " + center.y + ")";
-            /* this.horizonElement.attributes.transform.nodeValue = "rotate(" + roll + " " + center.x + " " + center.y + ")"; */
         }
     };
     return HorizonIndicator;
 });
-/* 
-128   -> 40
-  1   ->  0,3125
-  3,2 ->  1
-
-
-
--128 -> -40 
-*/;
 
 define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
