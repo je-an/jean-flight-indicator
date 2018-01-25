@@ -420,11 +420,14 @@ define('IndicatorBase',[ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatFeetString = function(feet){
+    IndicatorBase.prototype.formatFeetString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);
         feet = feet.toString();
         switch (feet.length) {
+            case 0:
+                s = "00000";
+                break;
             case 1:
                 s = "0000" + feet;
                 break;
@@ -438,6 +441,9 @@ define('IndicatorBase',[ // jscs:ignore
                 s = "0" + feet;
                 break;
             case 5:
+                s = feet;
+                break;
+            case 6:
                 s = feet;
                 break;
         }
@@ -632,6 +638,12 @@ define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], fun
      */
     StickIndicator.prototype.update = function (x, y) {
         if (this.isReady) {
+            // Define value bounds
+            x = x > 1 ? 1 : x;
+            x = x < -1 ? -1 : x;
+            y = y > 1 ? 1 : y;
+            y = y < -1 ? -1 : y;
+
             var xValue, yValue;
             // Set proper x value
             if (this.isPositiveNumber(x)) {

@@ -30,6 +30,12 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
      */
     StickIndicator.prototype.update = function (x, y) {
         if (this.isReady) {
+            // Define value bounds
+            x = x > 1 ? 1 : x;
+            x = x < -1 ? -1 : x;
+            y = y > 1 ? 1 : y;
+            y = y < -1 ? -1 : y;
+
             var xValue, yValue;
             // Set proper x value
             if (this.isPositiveNumber(x)) {
