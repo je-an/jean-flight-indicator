@@ -14,6 +14,9 @@ $(document).ready(function () {
     var altitude = new FlightIndicator.Altitude({
         containerId: "altitude-container"
     });
+    var horizon = new FlightIndicator.Horizon({
+        containerId: "horizon-container"
+    });
     var stick = new FlightIndicator.Stick({
         containerId: "stick-container"
     });
@@ -107,6 +110,7 @@ $(document).ready(function () {
                     collective.update(collectiveI * 60);
                     speed.update(speedI * 160);
                     altitude.update(altitudeI * 99999);
+                    horizon.update(40 * Math.sin(compassI / 50), (30 * Math.sin(compassI / 150)));
                     compassI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();

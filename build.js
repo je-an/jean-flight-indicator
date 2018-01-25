@@ -38,6 +38,9 @@
         "AltitudeIndicator": "src/Altitude/AltitudeIndicator",
         "altitude-html": "src/Altitude/html/altitude.html",
 
+        "HorizonIndicator": "src/Horizon/HorizonIndicator",
+        "horizon-html": "src/Horizon/html/horizon.html",
+
         "StickIndicator": "src/Stick/StickIndicator",
         "stick-html": "src/Stick/html/stick.html",
 
