@@ -99,7 +99,7 @@ pedal.update(
     /* number within range from 1 to 0 */, 
     /* number within range from 1 to 0 */
 );
-collective.update(/* number within range from 0° to 90° */);
+collective.update(/* number within range from 0° to 60° */);
 ```
 
 - Use it with require.js

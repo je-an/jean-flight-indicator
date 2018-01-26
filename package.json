@@ -1,6 +1,6 @@
 {
   "name": "jean-flight-indicator",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Provides Javascript animated SVGs that support the standard flight parameter indicators for heading, speed, altitude, pitch and roll, vertical speed and turn. In addition, helicopter-specific flight parameter indicators are available for stick positioning, pedal positioning and the angle of the collective lever",
   "main": "dist/jean-flight-indicator.js",
   "scripts": {
