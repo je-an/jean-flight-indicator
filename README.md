@@ -88,8 +88,8 @@ speed.update(/* number within range from 0kt to 160kt */);
 compass.update(/* number within range from 360° to -360° */);
 altitude.update(/* number within range from 0ft to 99999ft */);
 horizon.update(
-    /* number within range from 40 to -40 */, 
-    /* number within range from 30 to -30 */
+    /* number within range from 40° to -40° */, 
+    /* number within range from 30° to -30° */
 );
 stick.update(
     /* number within range from 1 to -1 */, 
