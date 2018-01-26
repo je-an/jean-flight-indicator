@@ -36,8 +36,8 @@ Standard
 
 |     Horizon     |   Vertical Speed      |      Turn    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator][logo-horizon]     |     ![Speed indicator][logo-coming-soon]      |   ![Altitude indicator][logo-coming-soon]       |
-|    Displays aircraft pitch and roll |     Displays aircraft vertical speed     |  Displays aircraft turn       |    
+|     ![Compass indicator][logo-horizon]     |     ![VSpeed indicator][logo-vertical-speed]      |   ![Altitude indicator][logo-coming-soon]       |
+|    Displays aircraft pitch and roll |     Displays aircraft vertical speed<br> [Under construction]   |  Displays aircraft turn       |    
 
 Helicopter specific
 ---
