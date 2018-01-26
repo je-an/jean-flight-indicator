@@ -661,6 +661,48 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
     return HorizonIndicator;
 });
 
+define('text!vertical-speed-html',[],function () { return '<div id="vertical-speed-module" style="width: 100%">\r\n    <object id="vertical-speed-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
+
+define('VerticalSpeedIndicator',[ // jscs:ignore
+    "Inheritance",
+    "IndicatorBase",
+    "text!vertical-speed-html"
+], function (Inheritance, IndicatorBase, html) { // jscs:ignore
+    /**
+     * Provides functionalty for displaying compass values
+     * @alias VerticalSpeedIndicator 
+     * @constructor
+     * @extends IndicatorBase
+     * @param {Object} options - options object
+     */
+    var VerticalSpeedIndicator = function (options) {
+        var instance = this;
+        options.template = html;
+        Inheritance.inheritConstructor(IndicatorBase, this, options);
+        this.init({
+            svgId: "vertical-speed-svg",
+            svgDataName: "vertical-speed.svg",
+            onSvgReady: function () { // jscs:ignore
+                instance.speedNeedle = instance.svgElement.getElementById("vario-element");
+            }
+        });
+    };
+    Inheritance.inheritPrototype(VerticalSpeedIndicator, IndicatorBase);
+    /** @param {Number} speedInKts - range from 0 to 160 */
+    VerticalSpeedIndicator.prototype.update = function (speedInKts) {
+        if (this.isReady) {
+            speedInKts = speedInKts > 160 ? 160 : speedInKts;
+            speedInKts = speedInKts < 0 ? 0 : speedInKts;
+            var box = this.speedNeedle.getBBox();
+            box.x = box.x + (box.width / 2);
+            box.y = box.y + box.height * 0.94; 
+            this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
+            this.speedValueText.childNodes[0].textContent = this.formatDegreeString(speedInKts);
+        }
+    };
+    return VerticalSpeedIndicator;
+});
+
 define('text!stick-html',[],function () { return '<div id="stick-module" style="width: 100%">\r\n    <object id="stick-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
 define('StickIndicator',["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritance, IndicatorBase, html) { // jscs:ignore
@@ -821,6 +863,7 @@ define('src/base/FlightIndicator',[
     "SpeedIndicator",
     "AltitudeIndicator",
     "HorizonIndicator",
+    "VerticalSpeedIndicator",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
@@ -831,6 +874,7 @@ define('src/base/FlightIndicator',[
     SpeedIndicator,
     AltitudeIndicator,
     HorizonIndicator,
+    VerticalSpeedIndicator,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
@@ -846,6 +890,7 @@ define('src/base/FlightIndicator',[
             Speed: SpeedIndicator,
             Altitude: AltitudeIndicator,
             Horizon: HorizonIndicator,
+            VerticalSpeed: VerticalSpeedIndicator,
             Stick: StickIndicator,
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,

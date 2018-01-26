@@ -17,6 +17,9 @@ $(document).ready(function () {
     var horizon = new FlightIndicator.Horizon({
         containerId: "horizon-container"
     });
+    var verticalSpeed = new FlightIndicator.VerticalSpeed({
+        containerId: "vertical-speed-container"
+    });
     var stick = new FlightIndicator.Stick({
         containerId: "stick-container"
     });

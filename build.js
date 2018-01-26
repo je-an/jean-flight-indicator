@@ -41,6 +41,9 @@
         "HorizonIndicator": "src/Horizon/HorizonIndicator",
         "horizon-html": "src/Horizon/html/horizon.html",
 
+        "VerticalSpeedIndicator": "src/VerticalSpeed/VerticalSpeedIndicator",
+        "vertical-speed-html": "src/VerticalSpeed/html/vertical-speed.html",
+
         "StickIndicator": "src/Stick/StickIndicator",
         "stick-html": "src/Stick/html/stick.html",
 
