@@ -34,7 +34,7 @@ define([ // jscs:ignore
             box.x = box.x + (box.width / 2);
             box.y = box.y + box.height * 0.94; 
             this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
-            this.speedValueText.childNodes[0].textContent = this.formatDegreeString(speedInKts);
+            this.speedValueText.childNodes[0].textContent = this.formatSpeedDegreeString(speedInKts);
         }
     };
     return SpeedIndicator;

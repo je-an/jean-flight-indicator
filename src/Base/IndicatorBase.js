@@ -82,6 +82,27 @@ define([ // jscs:ignore
         return s;
     };
     /** */
+    IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
+        var s = "";
+        degree = degree.toFixed(0);
+        degree = degree.toString();
+        switch (degree.length) {
+            case 1:
+                s = "00" + degree;
+                break;
+            case 2:
+                s = "0" + degree;
+                break;
+            case 3:
+                s = degree;
+                break;
+            case 4:
+                s = degree;
+                break;
+        }
+        return s;
+    };
+    /** */
     IndicatorBase.prototype.formatFeetString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);

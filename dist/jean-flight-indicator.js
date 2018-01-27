@@ -423,6 +423,27 @@ define('IndicatorBase',[ // jscs:ignore
         return s;
     };
     /** */
+    IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
+        var s = "";
+        degree = degree.toFixed(0);
+        degree = degree.toString();
+        switch (degree.length) {
+            case 1:
+                s = "00" + degree;
+                break;
+            case 2:
+                s = "0" + degree;
+                break;
+            case 3:
+                s = degree;
+                break;
+            case 4:
+                s = degree;
+                break;
+        }
+        return s;
+    };
+    /** */
     IndicatorBase.prototype.formatFeetString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);
@@ -546,7 +567,7 @@ define('SpeedIndicator',[ // jscs:ignore
             box.x = box.x + (box.width / 2);
             box.y = box.y + box.height * 0.94; 
             this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
-            this.speedValueText.childNodes[0].textContent = this.formatDegreeString(speedInKts);
+            this.speedValueText.childNodes[0].textContent = this.formatSpeedDegreeString(speedInKts);
         }
     };
     return SpeedIndicator;
