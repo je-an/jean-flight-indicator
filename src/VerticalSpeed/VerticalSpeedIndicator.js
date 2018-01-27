@@ -18,21 +18,22 @@ define([ // jscs:ignore
             svgId: "vertical-speed-svg",
             svgDataName: "vertical-speed.svg",
             onSvgReady: function () { // jscs:ignore
-                instance.speedNeedle = instance.svgElement.getElementById("vario-element");
+                instance.varioElement = instance.svgElement.getElementById("vario-element");
+                instance.varioElement.setAttribute("transform", "");
             }
         });
+        this.speedPerPixel = 180 / 4000;
     };
     Inheritance.inheritPrototype(VerticalSpeedIndicator, IndicatorBase);
-    /** @param {Number} speedInKts - range from 0 to 160 */
-    VerticalSpeedIndicator.prototype.update = function (speedInKts) {
+    /** @param {Number} varioSpeed - range from -4000ft to 4000ft */
+    VerticalSpeedIndicator.prototype.update = function (varioSpeed) {
         if (this.isReady) {
-            speedInKts = speedInKts > 160 ? 160 : speedInKts;
-            speedInKts = speedInKts < 0 ? 0 : speedInKts;
-            var box = this.speedNeedle.getBBox();
-            box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94; 
-            this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
-            this.speedValueText.childNodes[0].textContent = this.formatDegreeString(speedInKts);
+            varioSpeed = varioSpeed > 4000 ? 4000 : varioSpeed;
+            varioSpeed = varioSpeed < -4000 ? -4000 : varioSpeed;
+            var box = this.varioElement.getBBox();
+            box.x = box.x + (box.width * 0.93);
+            box.y = box.y + (box.height / 2);
+            this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + box.x + " " + box.y + ")";
         }
     };
     return VerticalSpeedIndicator;

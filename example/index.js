@@ -41,11 +41,12 @@ $(document).ready(function () {
                 isStarted = false;
                 $("#id-Start").find(".text").html("Start");
             } else {
-                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0,
+                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0, vSpeedI = 0,
                     countDownStick = false, countUpStick = true,
                     countDownCollective = false, countUpCollective = true,
-                    countDownSpeed = false, countUpSpeed = true;
-                    countDownAltitude = false, countUpAltitude = true;
+                    countDownSpeed = false, countUpSpeed = true,
+                    countDownAltitude = false, countUpAltitude = true,
+                    countDownVSpeed = false, countUpVSpeed = true;
                 function generateStickIncrement() {
                     if (countDownStick) {
                         stickI = stickI - 0.01;
@@ -98,11 +99,26 @@ $(document).ready(function () {
                             countUpAltitude = true;
                             countDownAltitude = false;
                         }
-                    } else if (countUpSpeed) {
+                    } else if (countUpAltitude) {
                         altitudeI = altitudeI + 0.0001;
-                        if (speedI >= 1) {
+                        if (altitudeI >= 1) {
                             countUpAltitude = false;
                             countDownAltitude = true;
+                        }
+                    }
+                }
+                function generateVSpeedIncrement() {
+                    if (countDownVSpeed) {
+                        vSpeedI = vSpeedI - 25;
+                        if (vSpeedI <= -4000) {
+                            countUpVSpeed = true;
+                            countDownVSpeed = false;
+                        }
+                    } else if (countUpVSpeed) {
+                        vSpeedI = vSpeedI + 25;
+                        if (vSpeedI >= 4000) {
+                            countUpVSpeed = false;
+                            countDownVSpeed = true;
                         }
                     }
                 }
@@ -114,11 +130,13 @@ $(document).ready(function () {
                     speed.update(speedI * 160);
                     altitude.update(altitudeI * 99999);
                     horizon.update(40 * Math.sin(compassI / 50), (30 * Math.sin(compassI / 150)));
+                    verticalSpeed.update(vSpeedI);
                     compassI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
                     generateSpeedIncrement();
                     generateAltitudeIncrement();
+                    generateVSpeedIncrement();
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");

@@ -31,7 +31,7 @@ define(["Inheritance", "IndicatorBase", "text!collective-html"], function (Inher
             var centerX = coord.x;
             var centerY = coord.y + (coord.height / 2);
             this.collectiveElement.attributes.transform.nodeValue = "rotate(" + -degree + " " + centerX + " " + centerY + ")";
-            this.collectiveValueText.childNodes[0].textContent = this.formatDegreeString(degree);
+            this.collectiveValueText.childNodes[0].textContent = this.formatSpeedDegreeString(degree);
         }
     };
     return CollectiveIndicator;

@@ -37,7 +37,7 @@ Standard
 |     Horizon     |   Vertical Speed      |      Turn    |
 |:----------:|:----------:|:----------:|
 |     ![Compass indicator][logo-horizon]     |     ![VSpeed indicator][logo-vertical-speed]      |   ![Altitude indicator][logo-coming-soon]       |
-|    Displays aircraft pitch and roll |     Displays aircraft vertical speed<br> [Under construction]   |  Displays aircraft turn       |    
+|    Displays aircraft pitch and roll |     Displays aircraft vertical speed   |  Displays aircraft turn       |    
 
 Helicopter specific
 ---
@@ -70,6 +70,9 @@ var altitude = new FlightIndicator.Altitude({
 var horizon = new FlightIndicator.Horizon({
     containerId: "horizon-container"
 });
+var verticalSpeed = new FlightIndicator.VerticalSpeed({
+    containerId: "vertical-speed-container"
+});
 var stick = new FlightIndicator.Stick({
     containerId: "stick-container"
 });
@@ -91,6 +94,7 @@ horizon.update(
     /* number within range from 40° to -40° */, 
     /* number within range from 30° to -30° */
 );
+verticalSpeed.update(/* number within range from 4000ft to -4000ft */)
 stick.update(
     /* number within range from 1 to -1 */, 
     /* number within range from 1 to -1 */
