@@ -64,15 +64,18 @@ define([ // jscs:ignore
         degree = degree.toString();
         switch (degree.length) {
             case 1:
-                s = "00" + degree;
+                s = "000" + degree;
                 break;
             case 2:
-                s = "0" + degree;
+                s = "00" + degree;
                 break;
             case 3:
-                s = degree;
+                s = "0" + degree;
                 break;
             case 4:
+                s = degree;
+                break;
+            case 5:
                 s = degree;
                 break;
         }
