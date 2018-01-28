@@ -29,8 +29,8 @@
         "BaseOptions": "src/Base/BaseOptions",
         "IndicatorBase": "src/Base/IndicatorBase",
 
-        "CompassIndicator": "src/Compass/CompassIndicator",
-        "compass-html": "src/Compass/html/compass.html",
+        "HeadingIndicator": "src/Heading/HeadingIndicator",
+        "heading-html": "src/Heading/html/heading.html",
 
         "SpeedIndicator": "src/Speed/SpeedIndicator",
         "speed-html": "src/Speed/html/speed.html",

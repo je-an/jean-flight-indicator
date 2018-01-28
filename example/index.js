@@ -5,8 +5,8 @@ $(document).ready(function () {
     FlightIndicator.setOptions({
         assets: "../img/"
     });
-    var compass = new FlightIndicator.Compass({
-        containerId: "compass-container"
+    var heading = new FlightIndicator.Heading({
+        containerId: "heading-container"
     });
     var speed = new FlightIndicator.Speed({
         containerId: "speed-container"
@@ -41,7 +41,7 @@ $(document).ready(function () {
                 isStarted = false;
                 $("#id-Start").find(".text").html("Start");
             } else {
-                var compassI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0, vSpeedI = 0,
+                var headingI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0, vSpeedI = 0,
                     countDownStick = false, countUpStick = true,
                     countDownCollective = false, countUpCollective = true,
                     countDownSpeed = false, countUpSpeed = true,
@@ -124,14 +124,14 @@ $(document).ready(function () {
                 }
                 interval = setInterval(function () {
                     pedal.update(collectiveI, collectiveI);
-                    compass.update(Math.sin(compassI / 500) * 360);
+                    heading.update(Math.sin(headingI / 500) * 360);
                     stick.update(stickI * 1, stickI * 1);
                     collective.update(collectiveI * 60);
                     speed.update(speedI * 160);
                     altitude.update(altitudeI * 99999);
-                    horizon.update(40 * Math.sin(compassI / 50), (30 * Math.sin(compassI / 150)));
+                    horizon.update(40 * Math.sin(headingI / 50), (30 * Math.sin(headingI / 150)));
                     verticalSpeed.update(vSpeedI);
-                    compassI++;
+                    headingI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
                     generateSpeedIncrement();

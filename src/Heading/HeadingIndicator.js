@@ -1,22 +1,22 @@
 define([ // jscs:ignore
     "Inheritance",
     "IndicatorBase",
-    "text!compass-html"
+    "text!heading-html"
 ], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
      * Provides functionalty for displaying compass values
-     * @alias CompassIndicator 
+     * @alias HeadingIndicator 
      * @constructor
      * @extends IndicatorBase
      * @param {Object} options - options object
      */
-    var CompassIndicator = function (options) {
+    var HeadingIndicator = function (options) {
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
         this.init({
-            svgId: "compass-svg",
-            svgDataName: "compass.svg",
+            svgId: "heading-svg",
+            svgDataName: "heading.svg",
             onSvgReady: function () { // jscs:ignore
                 instance.compassRose = instance.svgElement.getElementById("compass-rose");
                 instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
@@ -24,9 +24,9 @@ define([ // jscs:ignore
             }
         });
     };
-    Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
+    Inheritance.inheritPrototype(HeadingIndicator, IndicatorBase);
     /** @param {Number} degree - range from -360 to 360 */
-    CompassIndicator.prototype.update = function (degree) {
+    HeadingIndicator.prototype.update = function (degree) {
         if (this.isReady) {
             degree = degree > 360 ? 360 : degree;
             degree = degree < -360 ? -360 : degree;
@@ -36,5 +36,5 @@ define([ // jscs:ignore
             this.compassValueText.childNodes[0].textContent = this.formatCompassDegreeString(degree);
         }
     };
-    return CompassIndicator;
+    return HeadingIndicator;
 });

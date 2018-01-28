@@ -543,27 +543,27 @@ define('IndicatorBase',[ // jscs:ignore
 });
 define('text',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('text!compass-html',[],function () { return '<div id="compass-module" style="width: 100%">\r\n    <object id="compass-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
+define('text!heading-html',[],function () { return '<div id="heading-module" style="width: 100%">\r\n    <object id="heading-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
 
-define('CompassIndicator',[ // jscs:ignore
+define('HeadingIndicator',[ // jscs:ignore
     "Inheritance",
     "IndicatorBase",
-    "text!compass-html"
+    "text!heading-html"
 ], function (Inheritance, IndicatorBase, html) { // jscs:ignore
     /**
      * Provides functionalty for displaying compass values
-     * @alias CompassIndicator 
+     * @alias HeadingIndicator 
      * @constructor
      * @extends IndicatorBase
      * @param {Object} options - options object
      */
-    var CompassIndicator = function (options) {
+    var HeadingIndicator = function (options) {
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
         this.init({
-            svgId: "compass-svg",
-            svgDataName: "compass.svg",
+            svgId: "heading-svg",
+            svgDataName: "heading.svg",
             onSvgReady: function () { // jscs:ignore
                 instance.compassRose = instance.svgElement.getElementById("compass-rose");
                 instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
@@ -571,9 +571,9 @@ define('CompassIndicator',[ // jscs:ignore
             }
         });
     };
-    Inheritance.inheritPrototype(CompassIndicator, IndicatorBase);
+    Inheritance.inheritPrototype(HeadingIndicator, IndicatorBase);
     /** @param {Number} degree - range from -360 to 360 */
-    CompassIndicator.prototype.update = function (degree) {
+    HeadingIndicator.prototype.update = function (degree) {
         if (this.isReady) {
             degree = degree > 360 ? 360 : degree;
             degree = degree < -360 ? -360 : degree;
@@ -583,7 +583,7 @@ define('CompassIndicator',[ // jscs:ignore
             this.compassValueText.childNodes[0].textContent = this.formatCompassDegreeString(degree);
         }
     };
-    return CompassIndicator;
+    return HeadingIndicator;
 });
 
 define('text!speed-html',[],function () { return '<div id="speed-module" style="width: 100%">\r\n    <object id="speed-svg" style="width: 100%" data="" type="image/svg+xml"></object>\r\n</div>';});
@@ -957,7 +957,7 @@ define('CollectiveIndicator',["Inheritance", "IndicatorBase", "text!collective-h
 });
 define('src/base/FlightIndicator',[
     "TypeCheck",
-    "CompassIndicator",
+    "HeadingIndicator",
     "SpeedIndicator",
     "AltitudeIndicator",
     "HorizonIndicator",
@@ -968,7 +968,7 @@ define('src/base/FlightIndicator',[
     "BaseOptions"
 ], function (
     TypeCheck,
-    CompassIndicator,
+    HeadingIndicator,
     SpeedIndicator,
     AltitudeIndicator,
     HorizonIndicator,
@@ -984,7 +984,7 @@ define('src/base/FlightIndicator',[
          * @constructor
          */
         return {
-            Compass: CompassIndicator,
+            Heading: HeadingIndicator,
             Speed: SpeedIndicator,
             Altitude: AltitudeIndicator,
             Horizon: HorizonIndicator,

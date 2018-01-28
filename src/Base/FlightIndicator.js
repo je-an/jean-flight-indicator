@@ -1,6 +1,6 @@
 define([
     "TypeCheck",
-    "CompassIndicator",
+    "HeadingIndicator",
     "SpeedIndicator",
     "AltitudeIndicator",
     "HorizonIndicator",
@@ -11,7 +11,7 @@ define([
     "BaseOptions"
 ], function (
     TypeCheck,
-    CompassIndicator,
+    HeadingIndicator,
     SpeedIndicator,
     AltitudeIndicator,
     HorizonIndicator,
@@ -27,7 +27,7 @@ define([
          * @constructor
          */
         return {
-            Compass: CompassIndicator,
+            Heading: HeadingIndicator,
             Speed: SpeedIndicator,
             Altitude: AltitudeIndicator,
             Horizon: HorizonIndicator,

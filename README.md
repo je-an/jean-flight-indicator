@@ -1,4 +1,4 @@
-[logo-compass]: img/compass.preview.png
+[logo-heading]: img/heading.preview.png
 [logo-speed]: img/speed.preview.png
 [logo-altitude]: img/altitude.preview.png
 
@@ -27,9 +27,9 @@ Provides Javascript animated SVGs that support the standard flight indicators fo
 Standard
 ---
 
-|     Compass     |    Speed      |      Altitude    |
+|     Heading     |    Speed      |      Altitude    |
 |:----------:|:----------:|:----------:|
-|     ![compass indicator][logo-compass]    |     ![Speed indicator][logo-speed]      |   ![Altitude indicator][logo-altitude]       |
+|     ![compass indicator][logo-heading]    |     ![Speed indicator][logo-speed]      |   ![Altitude indicator][logo-altitude]       |
 |     Displays aircraft heading    |     Displays aircraft speed    |  Displays aircraft altitude    |
 
 ---
@@ -61,8 +61,8 @@ FlightIndicator.setOptions({
  var speed = new FlightIndicator.Speed({
         containerId: "speed-container"
 });
-var compass = new FlightIndicator.Compass({
-    containerId: "compass-container"
+var heading = new FlightIndicator.Heading({
+    containerId: "heading-container"
 });
 var altitude = new FlightIndicator.Altitude({
     containerId: "altitude-container"
@@ -88,7 +88,7 @@ var collective = new FlightIndicator.Collective({
 // For a smooth visualisation of the values within the specific indicator, 
 // it is recommended to update every 50ms.
 speed.update(/* number within range from 0kt to 160kt */);
-compass.update(/* number within range from 360° to -360° */);
+heading.update(/* number within range from 360° to -360° */);
 altitude.update(/* number within range from 0ft to 99999ft */);
 horizon.update(
     /* number within range from 40° to -40° */, 
