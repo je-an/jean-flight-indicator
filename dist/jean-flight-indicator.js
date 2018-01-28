@@ -399,26 +399,38 @@ define('IndicatorBase',[ // jscs:ignore
         return number < 0;
     };
     /** */
-    IndicatorBase.prototype.formatDegreeString = function (degree) {
+    IndicatorBase.prototype.formatCompassDegreeString = function (degree) {
         var s = "";
         degree = degree.toFixed(0);
-        degree = degree.toString();
-        switch (degree.length) {
-            case 1:
-                s = "000" + degree;
-                break;
-            case 2:
-                s = "00" + degree;
-                break;
-            case 3:
-                s = "0" + degree;
-                break;
-            case 4:
-                s = degree;
-                break;
-            case 5:
-                s = degree;
-                break;
+        if (this.isPositiveNumber(degree)) {
+            degree = degree.toString();
+            switch (degree.length) {
+                case 1:
+                    s = "000" + degree;
+                    break;
+                case 2:
+                    s = "00" + degree;
+                    break;
+                case 3:
+                    s = "0" + degree;
+                    break;
+            }
+        } else if (this.isNegativeNumber(degree)) {
+            degree = Math.abs(degree);
+            degree = degree.toString();
+            switch (degree.length) {
+                case 1:
+                    s = "-00" + degree;
+                    break;
+                case 2:
+                    s = "-0" + degree;
+                    break;
+                case 3:
+                    s = "-" + degree;
+                    break;
+            }
+        } else {
+            s = "0000";
         }
         return s;
     };
@@ -426,20 +438,41 @@ define('IndicatorBase',[ // jscs:ignore
     IndicatorBase.prototype.formatHorizonDegreeString = IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
         var s = "";
         degree = degree.toFixed(0);
-        degree = degree.toString();
-        switch (degree.length) {
-            case 1:
-                s = "<b>0</b>0" + degree;
-                break;
-            case 2:
-                s = "0" + degree;
-                break;
-            case 3:
-                s = degree;
-                break;
-            case 4:
-                s = degree;
-                break;
+        if (this.isPositiveNumber(degree)) {
+            degree = degree.toString();
+            switch (degree.length) {
+                case 1:
+                    s = "00" + degree;
+                    break;
+                case 2:
+                    s = "0" + degree;
+                    break;
+                case 3:
+                    s = degree;
+                    break;
+                case 4:
+                    s = degree;
+                    break;
+            }
+        } else if (this.isNegativeNumber(degree)) {
+            degree = Math.abs(degree);
+            degree = degree.toString();
+            switch (degree.length) {
+                case 1:
+                    s = "-0" + degree;
+                    break;
+                case 2:
+                    s = "-" + degree;
+                    break;
+                case 3:
+                    s = degree;
+                    break;
+                case 4:
+                    s = degree;
+                    break;
+            }
+        } else {
+            s = "000";
         }
         return s;
     };
@@ -523,7 +556,7 @@ define('CompassIndicator',[ // jscs:ignore
             var center = this.getElementCenter(this.compassRose);
             this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
 
-            this.compassValueText.childNodes[0].textContent = this.formatDegreeString(degree);
+            this.compassValueText.childNodes[0].textContent = this.formatCompassDegreeString(degree);
         }
     };
     return CompassIndicator;
@@ -686,7 +719,6 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
             this.rollValueText.childNodes[0].textContent = this.formatHorizonDegreeString(rollText);
         }
     };
-    /** */
     return HorizonIndicator;
 });
 

@@ -54,6 +54,5 @@ define(["Inheritance", "IndicatorBase", "text!horizon-html"], function (Inherita
             this.rollValueText.childNodes[0].textContent = this.formatHorizonDegreeString(rollText);
         }
     };
-    /** */
     return HorizonIndicator;
 });

@@ -34,7 +34,7 @@ define([ // jscs:ignore
             var center = this.getElementCenter(this.compassRose);
             this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
 
-            this.compassValueText.childNodes[0].textContent = this.formatDegreeString(degree);
+            this.compassValueText.childNodes[0].textContent = this.formatCompassDegreeString(degree);
         }
     };
     return CompassIndicator;
