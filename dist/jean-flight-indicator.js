@@ -423,13 +423,13 @@ define('IndicatorBase',[ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
+    IndicatorBase.prototype.formatHorizonDegreeString = IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
         var s = "";
         degree = degree.toFixed(0);
         degree = degree.toString();
         switch (degree.length) {
             case 1:
-                s = "00" + degree;
+                s = "<b>0</b>0" + degree;
                 break;
             case 2:
                 s = "0" + degree;
@@ -642,12 +642,14 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
         var instance = this;
         options.template = html;
         Inheritance.inheritConstructor(IndicatorBase, this, options);
-        this.init({  
+        this.init({
             svgId: "horizon-svg",
             svgDataName: "horizon.svg",
             onSvgReady: function () { // jscs:ignore
                 instance.horizonElement = instance.svgElement.getElementById("horizon-element");
                 instance.horizonElement.setAttribute("transform", "");
+                instance.pitchValueText = instance.svgElement.getElementById("pitch-value-text");
+                instance.rollValueText = instance.svgElement.getElementById("roll-value-text");
             }
         });
         this.pixelBounds = {
@@ -670,7 +672,7 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
      */
     HorizonIndicator.prototype.update = function (pitch, roll) {
         if (this.isReady) {
-            var pixelBound = this.pixelBounds;
+            var pixelBound = this.pixelBounds, center, pitchText = pitch, rollText = roll;
 
             pitch = pitch > pixelBound.PITCH_MAX ? pixelBound.PITCH_MAX : pitch;
             pitch = pitch < pixelBound.PITCH_MIN ? pixelBound.PITCH_MIN : pitch;
@@ -678,10 +680,13 @@ define('HorizonIndicator',["Inheritance", "IndicatorBase", "text!horizon-html"],
             roll = roll > pixelBound.ROLL_MAX ? pixelBound.ROLL_MAX : roll;
             roll = roll < pixelBound.ROLL_MIN ? pixelBound.ROLL_MIN : roll;
 
-            var center = this.getElementCenter(this.horizonElement);
+            center = this.getElementCenter(this.horizonElement);
             this.horizonElement.attributes.transform.nodeValue = "translate(0, " + pixelBound.PIXELS_PER_PITCH * pitch + ")" + " rotate(" + roll + " " + center.x + " " + center.y + ")";
+            this.pitchValueText.childNodes[0].textContent = this.formatHorizonDegreeString(pitchText);
+            this.rollValueText.childNodes[0].textContent = this.formatHorizonDegreeString(rollText);
         }
     };
+    /** */
     return HorizonIndicator;
 });
 

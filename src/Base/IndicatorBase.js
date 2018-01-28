@@ -82,13 +82,13 @@ define([ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
+    IndicatorBase.prototype.formatHorizonDegreeString = IndicatorBase.prototype.formatSpeedDegreeString = function (degree) {
         var s = "";
         degree = degree.toFixed(0);
         degree = degree.toString();
         switch (degree.length) {
             case 1:
-                s = "00" + degree;
+                s = "<b>0</b>0" + degree;
                 break;
             case 2:
                 s = "0" + degree;
