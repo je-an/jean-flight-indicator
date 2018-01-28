@@ -34,9 +34,9 @@ define([ // jscs:ignore
             varioSpeed = varioSpeed > 4000 ? 4000 : varioSpeed;
             varioSpeed = varioSpeed < -4000 ? -4000 : varioSpeed;
             var box = this.varioElement.getBBox();
-            box.x = box.x + (box.width * 0.93);
-            box.y = box.y + (box.height / 2);
-            this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + box.x + " " + box.y + ")";
+            var x = box.x + (box.width * 0.93);
+            var y = box.y + (box.height / 2);
+            this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + x + " " + y + ")";
             if (this.isPositiveNumber(varioText)) {
                 up = this.formatVSpeedString(varioText);
                 down = "00000";

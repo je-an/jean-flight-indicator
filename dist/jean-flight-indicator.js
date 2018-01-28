@@ -27,7 +27,8 @@ var require, define;
     }
     function resolve(id, factory, dependencies, resolvedModules, saveUnresolved) {
         if (resolvedModules.length === dependencies.length) {
-            modules.resolved[id] = factory.apply(factory, resolvedModules);
+            var mod = factory.apply(factory, resolvedModules);
+            modules.resolved[id] = mod ? mod : {};
         } else if (saveUnresolved) {
             modules.unresolved[id] = {
                 dependencies: dependencies,
@@ -620,9 +621,9 @@ define('SpeedIndicator',[ // jscs:ignore
             speedInKts = speedInKts > 160 ? 160 : speedInKts;
             speedInKts = speedInKts < 0 ? 0 : speedInKts;
             var box = this.speedNeedle.getBBox();
-            box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94; 
-            this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + box.x + " " + box.y + ")";
+            var x = box.x + (box.width / 2);
+            var y = box.y + box.height * 0.94; 
+            this.speedNeedle.attributes.transform.nodeValue = "rotate(" + speedInKts * 2 + " " + x + " " + y + ")";
             this.speedValueText.childNodes[0].textContent = this.formatSpeedDegreeString(speedInKts);
         }
     };
@@ -668,16 +669,16 @@ define('AltitudeIndicator',["Inheritance", "IndicatorBase", "text!altitude-html"
             feet = feet < 0 ? 0 : feet;
 
             var box = this.hundredNeedle.getBBox();
-            box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94;
+            var x = box.x + (box.width / 2);
+            var y = box.y + box.height * 0.94;
 
             var degreePerHundredFeet = this.degreePerHundredFeet,
                 degreePerThousandFeet = this.degreePerThousandFeet,
                 degreePerTenthousandFeet = this.degreePerTenthousandFeet;
 
-            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
-            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
-            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + x + " " + y + ")";
+            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + x + " " + y + ")";
+            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + x + " " + y + ")";
             this.altitudeValueText.childNodes[0].textContent = this.formatAltitudeString(feet);
         }
     };
@@ -783,9 +784,9 @@ define('VerticalSpeedIndicator',[ // jscs:ignore
             varioSpeed = varioSpeed > 4000 ? 4000 : varioSpeed;
             varioSpeed = varioSpeed < -4000 ? -4000 : varioSpeed;
             var box = this.varioElement.getBBox();
-            box.x = box.x + (box.width * 0.93);
-            box.y = box.y + (box.height / 2);
-            this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + box.x + " " + box.y + ")";
+            var x = box.x + (box.width * 0.93);
+            var y = box.y + (box.height / 2);
+            this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + x + " " + y + ")";
             if (this.isPositiveNumber(varioText)) {
                 up = this.formatVSpeedString(varioText);
                 down = "00000";

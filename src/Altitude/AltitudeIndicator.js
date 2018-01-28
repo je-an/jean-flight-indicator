@@ -35,16 +35,16 @@ define(["Inheritance", "IndicatorBase", "text!altitude-html"], function (Inherit
             feet = feet < 0 ? 0 : feet;
 
             var box = this.hundredNeedle.getBBox();
-            box.x = box.x + (box.width / 2);
-            box.y = box.y + box.height * 0.94;
+            var x = box.x + (box.width / 2);
+            var y = box.y + box.height * 0.94;
 
             var degreePerHundredFeet = this.degreePerHundredFeet,
                 degreePerThousandFeet = this.degreePerThousandFeet,
                 degreePerTenthousandFeet = this.degreePerTenthousandFeet;
 
-            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
-            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
-            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
+            this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + x + " " + y + ")";
+            this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + x + " " + y + ")";
+            this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + x + " " + y + ")";
             this.altitudeValueText.childNodes[0].textContent = this.formatAltitudeString(feet);
         }
     };
