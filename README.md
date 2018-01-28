@@ -14,7 +14,7 @@
 
 ## Description
 
-Provides Javascript animated SVGs that support the standard flight parameter indicators for heading, speed, altitude, pitch and roll, vertical speed and turn. In addition, helicopter-specific flight parameter indicators are available for stick positioning, pedal positioning and the angle of the collective lever. 
+Provides Javascript animated SVGs that support the standard flight indicators for heading, speed, altitude, pitch and roll, vertical speed and turn. In addition, helicopter-specific flight parameter indicators are available for stick positioning, pedal positioning and the angle of the collective lever. 
 
 ## Installation
 
@@ -39,7 +39,7 @@ Standard
 |     ![Compass indicator][logo-horizon]     |     ![VSpeed indicator][logo-vertical-speed]      |   ![Altitude indicator][logo-coming-soon]       |
 |    Displays aircraft pitch and roll |     Displays aircraft vertical speed   |  Displays aircraft turn       |    
 
-Helicopter specific
+Helicopter specific 
 ---
  
 |     Stick     |    Pedal      |      Collective    |
