@@ -269,7 +269,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:rl-tb;fill:#000000;fill-opacity:1;stroke:none"
        x="375.31738"
        y="71.107628"
        id="compass-value-text"><tspan
@@ -781,8 +781,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="423.19353"
-     inkscape:cy="408.7717"
+     inkscape:cx="358.5844"
+     inkscape:cy="412.64254"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -793,8 +793,8 @@
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:measure-start="165.5,397.625"
-     inkscape:measure-end="169.188,391.438"
+     inkscape:measure-start="399.531,449.469"
+     inkscape:measure-end="399.625,428.469"
      inkscape:lockguides="false">
     <sodipodi:guide
        position="250.01276,431.33514"
@@ -837,7 +837,7 @@
        id="guide3521"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="125.76399,449.01281"
+       position="394.90625,451.09375"
        orientation="0,1"
        id="guide3790"
        inkscape:locked="false" />

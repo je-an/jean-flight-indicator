@@ -45,7 +45,7 @@ define(["Inheritance", "IndicatorBase", "text!altitude-html"], function (Inherit
             this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
             this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
             this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
-            this.altitudeValueText.childNodes[0].textContent = this.formatFeetString(feet);
+            this.altitudeValueText.childNodes[0].textContent = this.formatAltitudeString(feet);
         }
     };
     return AltitudeIndicator;

@@ -477,32 +477,56 @@ define('IndicatorBase',[ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatFeetString = function (feet) {
+    IndicatorBase.prototype.formatVSpeedString = IndicatorBase.prototype.formatAltitudeString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);
-        feet = feet.toString();
-        switch (feet.length) {
-            case 0:
-                s = "00000";
-                break;
-            case 1:
-                s = "0000" + feet;
-                break;
-            case 2:
-                s = "000" + feet;
-                break;
-            case 3:
-                s = "00" + feet;
-                break;
-            case 4:
-                s = "0" + feet;
-                break;
-            case 5:
-                s = feet;
-                break;
-            case 6:
-                s = feet;
-                break;
+        if (this.isPositiveNumber(feet)) {
+            feet = feet.toString();
+            switch (feet.length) {
+                case 1:
+                    s = "0000" + feet;
+                    break;
+                case 2:
+                    s = "000" + feet;
+                    break;
+                case 3:
+                    s = "00" + feet;
+                    break;
+                case 4:
+                    s = "0" + feet;
+                    break;
+                case 5:
+                    s = feet;
+                    break;
+                case 6:
+                    s = feet;
+                    break;
+            }
+        } else if (this.isNegativeNumber(feet)) {
+            feet = Math.abs(feet);
+            feet = feet.toString();
+            switch (feet.length) {
+                case 1:
+                    s = "-000" + feet;
+                    break;
+                case 2:
+                    s = "-00" + feet;
+                    break;
+                case 3:
+                    s = "-0" + feet;
+                    break;
+                case 4:
+                    s = "-" + feet;
+                    break;
+                case 5:
+                    s = feet;
+                    break;
+                case 6:
+                    s = feet;
+                    break;
+            }
+        } else {
+            s = "00000";
         }
         return s;
     };
@@ -555,7 +579,6 @@ define('CompassIndicator',[ // jscs:ignore
 
             var center = this.getElementCenter(this.compassRose);
             this.compassRose.attributes.transform.nodeValue = "rotate(" + -degree + " " + center.x + " " + center.y + ")";
-
             this.compassValueText.childNodes[0].textContent = this.formatCompassDegreeString(degree);
         }
     };
@@ -655,7 +678,7 @@ define('AltitudeIndicator',["Inheritance", "IndicatorBase", "text!altitude-html"
             this.hundredNeedle.attributes.transform.nodeValue = "rotate(" + degreePerHundredFeet * feet + " " + box.x + " " + box.y + ")";
             this.thousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerThousandFeet * feet + " " + box.x + " " + box.y + ")";
             this.tenthousandNeedle.attributes.transform.nodeValue = "rotate(" + degreePerTenthousandFeet * feet + " " + box.x + " " + box.y + ")";
-            this.altitudeValueText.childNodes[0].textContent = this.formatFeetString(feet);
+            this.altitudeValueText.childNodes[0].textContent = this.formatAltitudeString(feet);
         }
     };
     return AltitudeIndicator;
@@ -746,6 +769,8 @@ define('VerticalSpeedIndicator',[ // jscs:ignore
             onSvgReady: function () { // jscs:ignore
                 instance.varioElement = instance.svgElement.getElementById("vario-element");
                 instance.varioElement.setAttribute("transform", "");
+                instance.upValueText = instance.svgElement.getElementById("up-value-text");
+                instance.downValueText = instance.svgElement.getElementById("down-value-text");
             }
         });
         this.speedPerPixel = 180 / 4000;
@@ -754,12 +779,22 @@ define('VerticalSpeedIndicator',[ // jscs:ignore
     /** @param {Number} varioSpeed - range from -4000ft to 4000ft */
     VerticalSpeedIndicator.prototype.update = function (varioSpeed) {
         if (this.isReady) {
+            var varioText = varioSpeed, up, down;
             varioSpeed = varioSpeed > 4000 ? 4000 : varioSpeed;
             varioSpeed = varioSpeed < -4000 ? -4000 : varioSpeed;
             var box = this.varioElement.getBBox();
             box.x = box.x + (box.width * 0.93);
             box.y = box.y + (box.height / 2);
             this.varioElement.attributes.transform.nodeValue = "rotate(" + (this.speedPerPixel * varioSpeed) + " " + box.x + " " + box.y + ")";
+            if (this.isPositiveNumber(varioText)) {
+                up = this.formatVSpeedString(varioText);
+                down = "00000";
+            } else if (this.isNegativeNumber(varioText)) {
+                up = "00000";
+                down = this.formatVSpeedString(varioText);
+            }
+            this.upValueText.childNodes[0].textContent = up;
+            this.downValueText.childNodes[0].textContent = down;
         }
     };
     return VerticalSpeedIndicator;

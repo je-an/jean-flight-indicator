@@ -136,32 +136,56 @@ define([ // jscs:ignore
         return s;
     };
     /** */
-    IndicatorBase.prototype.formatFeetString = function (feet) {
+    IndicatorBase.prototype.formatVSpeedString = IndicatorBase.prototype.formatAltitudeString = function (feet) {
         var s = "";
         feet = feet.toFixed(0);
-        feet = feet.toString();
-        switch (feet.length) {
-            case 0:
-                s = "00000";
-                break;
-            case 1:
-                s = "0000" + feet;
-                break;
-            case 2:
-                s = "000" + feet;
-                break;
-            case 3:
-                s = "00" + feet;
-                break;
-            case 4:
-                s = "0" + feet;
-                break;
-            case 5:
-                s = feet;
-                break;
-            case 6:
-                s = feet;
-                break;
+        if (this.isPositiveNumber(feet)) {
+            feet = feet.toString();
+            switch (feet.length) {
+                case 1:
+                    s = "0000" + feet;
+                    break;
+                case 2:
+                    s = "000" + feet;
+                    break;
+                case 3:
+                    s = "00" + feet;
+                    break;
+                case 4:
+                    s = "0" + feet;
+                    break;
+                case 5:
+                    s = feet;
+                    break;
+                case 6:
+                    s = feet;
+                    break;
+            }
+        } else if (this.isNegativeNumber(feet)) {
+            feet = Math.abs(feet);
+            feet = feet.toString();
+            switch (feet.length) {
+                case 1:
+                    s = "-000" + feet;
+                    break;
+                case 2:
+                    s = "-00" + feet;
+                    break;
+                case 3:
+                    s = "-0" + feet;
+                    break;
+                case 4:
+                    s = "-" + feet;
+                    break;
+                case 5:
+                    s = feet;
+                    break;
+                case 6:
+                    s = feet;
+                    break;
+            }
+        } else {
+            s = "00000";
         }
         return s;
     };
