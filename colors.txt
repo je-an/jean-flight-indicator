@@ -1,0 +1,8 @@
+Colors MFD:
+Gray: 666666ff
+Orange: ff7f00ff
+
+Font:
+Calibri Bold 28 --> Numbers
+Calibri Bold 24 --> Überschrift
+Calibri Bold 20 --> Text
