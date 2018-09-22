@@ -73,6 +73,9 @@ var horizon = new FlightIndicator.Horizon({
 var verticalSpeed = new FlightIndicator.VerticalSpeed({
     containerId: "vertical-speed-container"
 });
+var turn = new FlightIndicator.Turn({
+    containerId: "turn-container"
+});
 var stick = new FlightIndicator.Stick({
     containerId: "stick-container"
 });
@@ -95,6 +98,10 @@ horizon.update(
     /* number within range from 30° to -30° */
 );
 verticalSpeed.update(/* number within range from 4000ft to -4000ft */)
+turn.update(
+    /* tbd */, 
+    /* tbd */
+);
 stick.update(
     /* number within range from 1 to -1 */, 
     /* number within range from 1 to -1 */
