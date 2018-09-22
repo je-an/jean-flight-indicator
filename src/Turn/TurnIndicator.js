@@ -24,7 +24,8 @@ define([ // jscs:ignore
                 instance.ball.setAttribute("transform", "");
             }
         });
-        this.maxDegree = 17.5;
+        this.maxTurn = 17.5;
+        this.maxSlip = 84;
     };
     Inheritance.inheritPrototype(TurnIndicator, IndicatorBase);
     /** 

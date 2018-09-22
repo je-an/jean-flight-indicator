@@ -54,7 +54,6 @@ $(document).ready(function () {
                     countDownVSpeed = false, countUpVSpeed = true,
                     countDownTurn = false, countUpTurn = true,
                     countDownSlip = false, countUpSlip = true;
-                turn.update(20);
                 function generateStickIncrement() {
                     if (countDownStick) {
                         stickI = stickI - 0.01;
@@ -147,13 +146,13 @@ $(document).ready(function () {
                 }
                 function generateSlipIncrement() {
                     if (countDownSlip) {
-                        slipI = slipI - 0.5;
+                        slipI = slipI - 0.48;
                         if (slipI <= -84) {
                             countUpSlip = true;
                             countDownSlip = false;
                         }
                     } else if (countUpSlip) {
-                        slipI = slipI + 0.5;
+                        slipI = slipI + 0.48;
                         if (slipI >= 84) {
                             countUpSlip = false;
                             countDownSlip = true;
