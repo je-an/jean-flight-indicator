@@ -11,20 +11,20 @@
   "license": "MIT",
   "dependencies": {
     "jean-amd": "1.0.3",
-    "jean-failure": "^1.0.0",
-    "jean-inheritance": "^1.0.3",
-    "jean-interface": "^1.0.2",
-    "jean-type-check": "^1.0.5"
+    "jean-failure": "^1.0.1",
+    "jean-inheritance": "^1.0.4",
+    "jean-interface": "^1.1.0",
+    "jean-type-check": "^1.5.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/je-an/jean-flight-indicator.git"
   },
   "devDependencies": {
-    "bootstrap": "^4.0.0",
-    "jean-navbar": "^1.0.1",
-    "jquery": "^3.2.1",
-    "requirejs": "^2.3.5",
+    "bootstrap": "^4.1.3",
+    "jean-navbar": "^1.0.4",
+    "jquery": "^3.3.1",
+    "requirejs": "^2.3.6",
     "text": "github:requirejs/text"
   }
 }

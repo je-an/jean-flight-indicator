@@ -5,6 +5,7 @@ define([
     "AltitudeIndicator",
     "HorizonIndicator",
     "VerticalSpeedIndicator",
+    "TurnIndicator",
     "StickIndicator",
     "PedalIndicator",
     "CollectiveIndicator",
@@ -16,6 +17,7 @@ define([
     AltitudeIndicator,
     HorizonIndicator,
     VerticalSpeedIndicator,
+    TurnIndicator,
     StickIndicator,
     PedalIndicator,
     CollectiveIndicator,
@@ -35,6 +37,7 @@ define([
             Stick: StickIndicator,
             Pedal: PedalIndicator,
             Collective: CollectiveIndicator,
+            Turn: TurnIndicator,
             /**
              * @param {Object} options - options object
              * @param {String} options.assets - path to svgs and other assets

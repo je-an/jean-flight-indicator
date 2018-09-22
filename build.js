@@ -44,6 +44,9 @@
         "VerticalSpeedIndicator": "src/VerticalSpeed/VerticalSpeedIndicator",
         "vertical-speed-html": "src/VerticalSpeed/html/vertical-speed.html",
 
+        "TurnIndicator": "src/Turn/TurnIndicator",
+        "turn-html": "src/Turn/html/turn.html",
+
         "StickIndicator": "src/Stick/StickIndicator",
         "stick-html": "src/Stick/html/stick.html",
 
@@ -51,7 +54,7 @@
         "pedal-html": "src/Pedal/html/pedal.html",
 
         "CollectiveIndicator": "src/Collective/CollectiveIndicator",
-        "collective-html": "src/Collective/html/collective.html",
+        "collective-html": "src/Collective/html/collective.html"
     },
     stubModules: ["text"]
 })

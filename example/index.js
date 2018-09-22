@@ -20,6 +20,9 @@ $(document).ready(function () {
     var verticalSpeed = new FlightIndicator.VerticalSpeed({
         containerId: "vertical-speed-container"
     });
+    var turn = new FlightIndicator.Turn({
+        containerId: "turn-container"
+    });
     var stick = new FlightIndicator.Stick({
         containerId: "stick-container"
     });
