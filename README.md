@@ -4,7 +4,7 @@
 
 [logo-horizon]: img/horizon.preview.png
 [logo-vertical-speed]: img/vertical-speed.preview.png 
-[logo-altitude]: img/altitude.svg 
+[logo-turn]: img/turn.preview.png 
 
 [logo-stick]: img/stick.preview.png
 [logo-pedal]: img/pedal.preview.png
@@ -36,7 +36,7 @@ Standard
 
 |     Horizon     |   Vertical Speed      |      Turn    |
 |:----------:|:----------:|:----------:|
-|     ![Compass indicator][logo-horizon]     |     ![VSpeed indicator][logo-vertical-speed]      |   ![Altitude indicator][logo-coming-soon]       |
+|     ![Compass indicator][logo-horizon]     |     ![VSpeed indicator][logo-vertical-speed]      |   ![Turn indicator][logo-turn]       |
 |    Displays aircraft pitch and roll |     Displays aircraft vertical speed   |  Displays aircraft turn       |    
 
 Helicopter specific 
