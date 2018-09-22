@@ -1,7 +1,7 @@
 ({
     baseUrl: '.',
     out: 'dist/jean-flight-indicator.js',
-    optimize: 'uglify2',
+    optimize: 'none',
     name: 'node_modules/jean-amd/dist/jean-amd',
     include: ["src/base/FlightIndicator"],
     wrap: {

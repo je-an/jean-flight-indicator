@@ -32,6 +32,7 @@ $(document).ready(function () {
     var collective = new FlightIndicator.Collective({
         containerId: "collective-container"
     });
+
     var isStarted = false, interval;
     var n = new Navbar({
         containerId: "jean-navbar-container",
@@ -45,11 +46,14 @@ $(document).ready(function () {
                 $("#id-Start").find(".text").html("Start");
             } else {
                 var headingI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0, vSpeedI = 0,
+                    turnI = 0,
                     countDownStick = false, countUpStick = true,
                     countDownCollective = false, countUpCollective = true,
                     countDownSpeed = false, countUpSpeed = true,
                     countDownAltitude = false, countUpAltitude = true,
                     countDownVSpeed = false, countUpVSpeed = true;
+                countDownTurn = false, countUpTurn = true;
+                turn.update(20);
                 function generateStickIncrement() {
                     if (countDownStick) {
                         stickI = stickI - 0.01;
@@ -125,6 +129,21 @@ $(document).ready(function () {
                         }
                     }
                 }
+                function generateTurnIncrement() {
+                    if (countDownTurn) {
+                        turnI = turnI - 0.1;
+                        if (turnI <= -17.5) {
+                            countUpTurn = true;
+                            countDownTurn = false;
+                        }
+                    } else if (countUpTurn) {
+                        turnI = turnI + 0.1;
+                        if (turnI >= 17.5) {
+                            countUpTurn = false;
+                            countDownTurn = true;
+                        }
+                    }
+                }
                 interval = setInterval(function () {
                     pedal.update(collectiveI, collectiveI);
                     heading.update(Math.sin(headingI / 500) * 360);
@@ -134,12 +153,14 @@ $(document).ready(function () {
                     altitude.update(altitudeI * 99999);
                     horizon.update(40 * Math.sin(headingI / 50), (30 * Math.sin(headingI / 150)));
                     verticalSpeed.update(vSpeedI);
+                    turn.update(turnI); console.log(turnI);
                     headingI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
                     generateSpeedIncrement();
                     generateAltitudeIncrement();
                     generateVSpeedIncrement();
+                    generateTurnIncrement();
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");
