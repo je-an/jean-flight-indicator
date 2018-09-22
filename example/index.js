@@ -46,13 +46,14 @@ $(document).ready(function () {
                 $("#id-Start").find(".text").html("Start");
             } else {
                 var headingI = 0, stickI = 0, collectiveI = 0, speedI = 0, altitudeI = 0, vSpeedI = 0,
-                    turnI = 0,
+                    turnI = 0, slipI = 0,
                     countDownStick = false, countUpStick = true,
                     countDownCollective = false, countUpCollective = true,
                     countDownSpeed = false, countUpSpeed = true,
                     countDownAltitude = false, countUpAltitude = true,
-                    countDownVSpeed = false, countUpVSpeed = true;
-                countDownTurn = false, countUpTurn = true;
+                    countDownVSpeed = false, countUpVSpeed = true,
+                    countDownTurn = false, countUpTurn = true,
+                    countDownSlip = false, countUpSlip = true;
                 turn.update(20);
                 function generateStickIncrement() {
                     if (countDownStick) {
@@ -144,6 +145,21 @@ $(document).ready(function () {
                         }
                     }
                 }
+                function generateSlipIncrement() {
+                    if (countDownSlip) {
+                        slipI = slipI - 0.5;
+                        if (slipI <= -84) {
+                            countUpSlip = true;
+                            countDownSlip = false;
+                        }
+                    } else if (countUpSlip) {
+                        slipI = slipI + 0.5;
+                        if (slipI >= 84) {
+                            countUpSlip = false;
+                            countDownSlip = true;
+                        }
+                    }
+                }
                 interval = setInterval(function () {
                     pedal.update(collectiveI, collectiveI);
                     heading.update(Math.sin(headingI / 500) * 360);
@@ -153,7 +169,7 @@ $(document).ready(function () {
                     altitude.update(altitudeI * 99999);
                     horizon.update(40 * Math.sin(headingI / 50), (30 * Math.sin(headingI / 150)));
                     verticalSpeed.update(vSpeedI);
-                    turn.update(turnI); console.log(turnI);
+                    turn.update(turnI, slipI);
                     headingI++;
                     generateStickIncrement();
                     generateCollectiveIncrement();
@@ -161,6 +177,7 @@ $(document).ready(function () {
                     generateAltitudeIncrement();
                     generateVSpeedIncrement();
                     generateTurnIncrement();
+                    generateSlipIncrement();
                 }, 50);
                 isStarted = true;
                 $("#id-Start").find(".text").html("Stop");

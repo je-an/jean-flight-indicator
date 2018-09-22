@@ -47,7 +47,7 @@ define([
                     console.info("The standard asset path is used");
                     return BaseOptions.assets;
                 }
-                BaseOptions.assets = TypeCheck.isString(options.assets) ? options.assets : onStandardAssetPathUsed()
+                BaseOptions.assets = TypeCheck.isString(options.assets) ? options.assets : onStandardAssetPathUsed();
             }
         };
     });
