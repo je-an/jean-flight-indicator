@@ -29,35 +29,23 @@ define([ // jscs:ignore
     };
     Inheritance.inheritPrototype(TurnIndicator, IndicatorBase);
     /** 
-     * @param {Number} turnDegree - range from -x° to x°
-     * @param {Number} slip - range from -x to x
+     * @param {Number} turn - range from -3°/sec to 3°/sec
+     * @param {Number} slip - range from -1 to 1
      */
-    TurnIndicator.prototype.update = function (turnDegree, slip) {
+    TurnIndicator.prototype.update = function (turn, slip) {
         if (this.isReady) {
             var box = this.vehicle.getBBox();
             var x = box.x + (box.width / 2);
             var y = box.y + (box.height / 2);
-            this.vehicle.attributes.transform.nodeValue = "rotate(" + (turnDegree) + " " + x + " " + y + ")";
+            
+            turn = turn > 3 ? 3 : turn;
+            turn = turn < -3 ? -3 : turn;
 
-           /*  var xValue, yValue;
-            // Set proper x value
-            if (this.isPositiveNumber(x)) {
-                xValue = this.calculatePercentage(x, this.bounds.high);
-            } else if (this.isNegativeNumber(x)) {
-                xValue = this.calculatePercentage(x, this.bounds.low);
-            } else {
-                xValue = 0;
-            }
-            // Set proper y value
-            if (this.isPositiveNumber(y)) {
-                yValue = this.calculatePercentage(y, this.bounds.high);
-            } else if (this.isNegativeNumber(y)) {
-                yValue = this.calculatePercentage(y, this.bounds.low);
-            } else {
-                yValue = 0;
-            } */
-            this.ball.attributes.transform.nodeValue = "translate(" + slip + ", 0)";
+            slip = slip > 1 ? 1 : slip;
+            slip = slip < -1 ? -1 : slip;
 
+            this.vehicle.attributes.transform.nodeValue = "rotate(" + (turn / 3) * this.maxTurn + " " + x + " " + y + ")";
+            this.ball.attributes.transform.nodeValue = "translate(" + slip * this.maxSlip + ", 0)";
         }
     };
     return TurnIndicator;

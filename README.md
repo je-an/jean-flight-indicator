@@ -59,7 +59,7 @@ FlightIndicator.setOptions({
 // Create all indicator and pass the id of the html element 
 // which shall be used as container for the specific indicator svg
  var speed = new FlightIndicator.Speed({
-        containerId: "speed-container"
+    containerId: "speed-container"
 });
 var heading = new FlightIndicator.Heading({
     containerId: "heading-container"
@@ -99,8 +99,8 @@ horizon.update(
 );
 verticalSpeed.update(/* number within range from 4000ft to -4000ft */)
 turn.update(
-    /* tbd */, 
-    /* tbd */
+    /* number within range from -3°/sec to 3°/sec */, 
+    /* number within range from -1 to 1 */
 );
 stick.update(
     /* number within range from 1 to -1 */, 

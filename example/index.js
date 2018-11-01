@@ -131,14 +131,14 @@ $(document).ready(function () {
                 }
                 function generateTurnIncrement() {
                     if (countDownTurn) {
-                        turnI = turnI - 0.1;
-                        if (turnI <= -17.5) {
+                        turnI = turnI - 0.01;
+                        if (turnI <= -3) {
                             countUpTurn = true;
                             countDownTurn = false;
                         }
                     } else if (countUpTurn) {
-                        turnI = turnI + 0.1;
-                        if (turnI >= 17.5) {
+                        turnI = turnI + 0.01;
+                        if (turnI >= 3) {
                             countUpTurn = false;
                             countDownTurn = true;
                         }
@@ -146,14 +146,14 @@ $(document).ready(function () {
                 }
                 function generateSlipIncrement() {
                     if (countDownSlip) {
-                        slipI = slipI - 0.48;
-                        if (slipI <= -84) {
+                        slipI = slipI - 0.01;
+                        if (slipI <= -1) {
                             countUpSlip = true;
                             countDownSlip = false;
                         }
                     } else if (countUpSlip) {
-                        slipI = slipI + 0.48;
-                        if (slipI >= 84) {
+                        slipI = slipI + 0.01;
+                        if (slipI >= 1) {
                             countUpSlip = false;
                             countDownSlip = true;
                         }
