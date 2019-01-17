@@ -21,6 +21,7 @@ define(["Inheritance", "IndicatorBase", "text!altitude-html"], function (Inherit
                 instance.hundredNeedle.setAttribute("transform", "");
                 instance.thousandNeedle.setAttribute("transform", "");
                 instance.tenthousandNeedle.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
         this.degreePerHundredFeet = 360 / 1000;

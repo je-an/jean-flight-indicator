@@ -21,6 +21,7 @@ define([ // jscs:ignore
                 instance.compassRose = instance.svgElement.getElementById("compass-rose");
                 instance.compassValueText = instance.svgElement.getElementById("compass-value-text");
                 instance.compassRose.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
     };

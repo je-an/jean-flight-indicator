@@ -6,31 +6,58 @@ $(document).ready(function () {
         assets: "../img/"
     });
     var heading = new FlightIndicator.Heading({
-        containerId: "heading-container"
+        containerId: "heading-container",
+        onIndicatorReady: function () {
+            console.log("Heading Indicator ready!");
+        }
     });
     var speed = new FlightIndicator.Speed({
-        containerId: "speed-container"
+        containerId: "speed-container",
+        onIndicatorReady: function () {
+            console.log("Speed Indicator ready!");
+        }
     });
     var altitude = new FlightIndicator.Altitude({
-        containerId: "altitude-container"
+        containerId: "altitude-container",
+        onIndicatorReady: function () {
+            console.log("Altitude Indicator ready!");
+        }
     });
     var horizon = new FlightIndicator.Horizon({
-        containerId: "horizon-container"
+        containerId: "horizon-container",
+        onIndicatorReady: function () {
+            console.log("Horizon Indicator ready!");
+        }
     });
     var verticalSpeed = new FlightIndicator.VerticalSpeed({
-        containerId: "vertical-speed-container"
+        containerId: "vertical-speed-container",
+        onIndicatorReady: function () {
+            console.log("Vertical Speed Indicator ready!");
+        }
     });
     var turn = new FlightIndicator.Turn({
-        containerId: "turn-container"
+        containerId: "turn-container",
+        onIndicatorReady: function () {
+            console.log("Turn Indicator ready!");
+        }
     });
     var stick = new FlightIndicator.Stick({
-        containerId: "stick-container"
+        containerId: "stick-container",
+        onIndicatorReady: function () {
+            console.log("Stick Indicator ready!");
+        }
     });
     var pedal = new FlightIndicator.Pedal({
-        containerId: "pedal-container"
+        containerId: "pedal-container",
+        onIndicatorReady: function () {
+            console.log("Pedal Indicator ready!");
+        }
     });
     var collective = new FlightIndicator.Collective({
-        containerId: "collective-container"
+        containerId: "collective-container",
+        onIndicatorReady: function () {
+            console.log("Collective Indicator ready!");
+        }
     });
 
     var isStarted = false, interval;

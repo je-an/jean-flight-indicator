@@ -11,6 +11,7 @@ define([ // jscs:ignore
      * @constructor
      * @param {Object} options - options object
      * @param {String} options.containerId - Id of the container, the indicator shall be placed in
+     * @param {Function} options.onIndicatorReady - Gets called if the indicator is ready for value updates
      */
     var IndicatorBase = function (options) {
         if (!TypeCheck.isString(options.containerId)) {
@@ -22,6 +23,7 @@ define([ // jscs:ignore
         this.options = options;
         this.container = null;
         this.isReady = false;
+        this.onIndicatorReady = TypeCheck.isFunction(options.onIndicatorReady) ? options.onIndicatorReady : function () { };
     };
     /** 
      * @param {Object} options - options object

@@ -18,6 +18,7 @@ define(["Inheritance", "IndicatorBase", "text!pedal-html"], function (Inheritanc
                 instance.pedalRightElement = instance.svgElement.getElementById("pedal-right-element");
                 instance.pedalLeftElement.setAttribute("transform", "");
                 instance.pedalRightElement.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
         this.bounds = {

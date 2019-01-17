@@ -17,6 +17,7 @@ define(["Inheritance", "IndicatorBase", "text!collective-html"], function (Inher
                 instance.collectiveElement = instance.svgElement.getElementById("collective-element");
                 instance.collectiveValueText = instance.svgElement.getElementById("collective-value-text");
                 instance.collectiveElement.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
     };

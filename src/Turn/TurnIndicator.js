@@ -22,6 +22,7 @@ define([ // jscs:ignore
                 instance.vehicle.setAttribute("transform", "");
                 instance.ball = instance.svgElement.getElementById("ball");
                 instance.ball.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
         this.maxTurn = 17.5;

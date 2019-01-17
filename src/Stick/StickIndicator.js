@@ -16,6 +16,7 @@ define(["Inheritance", "IndicatorBase", "text!stick-html"], function (Inheritanc
             onSvgReady: function () { // jscs:ignore
                 instance.stickElement = instance.svgElement.getElementById("stick-element");
                 instance.stickElement.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
         this.bounds = {

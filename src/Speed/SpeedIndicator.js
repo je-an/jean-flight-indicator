@@ -21,6 +21,7 @@ define([ // jscs:ignore
                 instance.speedNeedle = instance.svgElement.getElementById("speed-needle");
                 instance.speedValueText = instance.svgElement.getElementById("speed-value-text");
                 instance.speedNeedle.setAttribute("transform", "");
+                instance.onIndicatorReady();
             }
         });
     };

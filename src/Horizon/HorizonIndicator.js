@@ -18,6 +18,7 @@ define(["Inheritance", "IndicatorBase", "text!horizon-html"], function (Inherita
                 instance.horizonElement.setAttribute("transform", "");
                 instance.pitchValueText = instance.svgElement.getElementById("pitch-value-text");
                 instance.rollValueText = instance.svgElement.getElementById("roll-value-text");
+                instance.onIndicatorReady();
             }
         });
         this.pixelBounds = {

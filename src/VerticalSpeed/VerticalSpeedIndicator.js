@@ -22,6 +22,7 @@ define([ // jscs:ignore
                 instance.varioElement.setAttribute("transform", "");
                 instance.upValueText = instance.svgElement.getElementById("up-value-text");
                 instance.downValueText = instance.svgElement.getElementById("down-value-text");
+                instance.onIndicatorReady();
             }
         });
         this.speedPerPixel = 180 / 4000;
