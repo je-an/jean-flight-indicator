@@ -59,31 +59,58 @@ FlightIndicator.setOptions({
 // Create all indicator and pass the id of the html element 
 // which shall be used as container for the specific indicator svg
  var speed = new FlightIndicator.Speed({
-    containerId: "speed-container"
+    containerId: "speed-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var heading = new FlightIndicator.Heading({
-    containerId: "heading-container"
+    containerId: "heading-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var altitude = new FlightIndicator.Altitude({
-    containerId: "altitude-container"
+    containerId: "altitude-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var horizon = new FlightIndicator.Horizon({
-    containerId: "horizon-container"
+    containerId: "horizon-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var verticalSpeed = new FlightIndicator.VerticalSpeed({
-    containerId: "vertical-speed-container"
+    containerId: "vertical-speed-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var turn = new FlightIndicator.Turn({
-    containerId: "turn-container"
+    containerId: "turn-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var stick = new FlightIndicator.Stick({
-    containerId: "stick-container"
+    containerId: "stick-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var pedal = new FlightIndicator.Pedal({
-    containerId: "pedal-container"
+    containerId: "pedal-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 var collective = new FlightIndicator.Collective({
-    containerId: "collective-container"
+    containerId: "collective-container",
+    onIndicatorReady: function () {
+        
+    }
 });
 
 // Update methods. 
